@@ -84,9 +84,19 @@ export function SiteHeader({
             ))}
           </div>
           <Button asChild size="sm" variant="ghost" className="hidden md:inline-flex">
-            <a href="#dashboard">
+            <a href="/login">
               <LogIn className="mr-2 h-4 w-4" />
               {dictionary.nav.login}
+            </a>
+          </Button>
+          <Button
+            asChild
+            size="icon"
+            variant="outline"
+            className="h-9 w-9 md:hidden"
+          >
+            <a href="/login" aria-label={dictionary.nav.login}>
+              <LogIn className="h-4 w-4" />
             </a>
           </Button>
           <Button asChild size="sm" className="hidden sm:inline-flex">
