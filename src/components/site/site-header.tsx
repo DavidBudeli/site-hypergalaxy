@@ -100,7 +100,7 @@ export function SiteHeader({
             </a>
           </Button>
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <a href="#cta">{dictionary.nav.start}</a>
+            <a href="/login">{dictionary.nav.start}</a>
           </Button>
         </div>
       </div>

@@ -29,7 +29,7 @@ export function FinalCtaSection({ dictionary }: FinalCtaSectionProps) {
                 {dictionary.cta.subtitle}
               </p>
               <div className="mt-8 flex justify-center">
-                <MagneticButton href="#top" className="group">
+                <MagneticButton href="/login" className="group">
                   {dictionary.cta.button}
                   <ArrowRight className="h-4 w-4" />
                 </MagneticButton>

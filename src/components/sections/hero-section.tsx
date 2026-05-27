@@ -6,15 +6,28 @@ import {
   ArrowDown,
   ArrowRight,
   Bot,
-  CircuitBoard,
+  Boxes,
+  ChartNoAxesCombined,
+  CircleDollarSign,
   Cpu,
+  Database,
+  Search,
   Sparkles,
-  Zap
+  TicketCheck,
+  Workflow
 } from "lucide-react";
 import { MagneticButton } from "@/components/site/magnetic-button";
 import { Badge } from "@/components/ui/badge";
 import { GalaxyScene } from "@/components/visuals/galaxy-scene";
 import type { Dictionary } from "@/lib/i18n";
+import {
+  activeProjects,
+  aiAgents,
+  aiUsageByDay,
+  operationalMetrics,
+  ticketQueue,
+  workspaceUsers
+} from "@/lib/product-data";
 
 type HeroSectionProps = {
   dictionary: Dictionary;
@@ -100,12 +113,12 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <MagneticButton href="#cta" className="group w-full sm:w-auto">
+            <MagneticButton href="/login" className="group w-full sm:w-auto">
               {dictionary.hero.primary}
               <ArrowRight className="h-4 w-4" />
             </MagneticButton>
             <MagneticButton
-              href="#agents"
+              href="#dashboard"
               variant="galaxy"
               className="group w-full sm:w-auto"
             >
@@ -127,95 +140,229 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
           </div>
         </div>
 
-        <HeroCommandDeck dictionary={dictionary} />
+        <HeroCommandDeck />
       </div>
     </section>
   );
 }
 
-function HeroCommandDeck({ dictionary }: HeroSectionProps) {
+function HeroCommandDeck() {
   return (
     <motion.div
-      className="relative hidden min-h-[620px] lg:block"
+      className="relative hidden min-h-[690px] min-[1180px]:block"
       initial={false}
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="absolute inset-0 rounded-full bg-cyan-300/10 blur-3xl" />
-      <div className="holo-border absolute left-10 top-12 w-[540px] rounded-lg">
-        <div className="glass-panel relative overflow-hidden rounded-lg p-5">
+      <div className="holo-border absolute right-0 top-4 w-[580px] rounded-lg min-[1400px]:w-[650px]">
+        <div className="glass-panel relative overflow-hidden rounded-lg p-4">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
-          <div className="absolute inset-0 bg-holo-grid bg-[size:34px_34px] opacity-20" />
-          <div className="relative flex items-center justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-100">
-                Galaxy Command
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">
-                Hyper Galaxy OS
-              </h2>
-            </div>
-            <div className="flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 text-xs font-bold text-emerald-100">
-              <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_16px_rgba(52,211,153,0.9)]" />
-              Online
-            </div>
-          </div>
+          <div className="absolute inset-0 bg-holo-grid bg-[size:34px_34px] opacity-[0.08]" />
 
-          <div className="relative mt-8 grid grid-cols-[1fr_0.8fr] gap-4">
-            <div className="relative min-h-72 rounded-lg border border-cyan-200/10 bg-slate-950/48 p-5">
-              <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/20" />
-              <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-300/14" />
-              <div className="absolute left-1/2 top-1/2 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-cyan-100/30 bg-cyan-300/10 shadow-cyan-glow">
-                <Bot className="h-9 w-9 text-cyan-100" />
+          <div className="relative grid min-h-[640px] grid-cols-[140px_1fr] gap-4 min-[1400px]:grid-cols-[160px_1fr]">
+            <aside className="rounded-lg border border-white/10 bg-slate-950/62 p-3 xl:p-4">
+              <div className="flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-lg border border-cyan-200/20 bg-cyan-300/10">
+                  <Database className="h-5 w-5 text-cyan-100" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">HG Cloud</p>
+                  <p className="text-[0.68rem] text-slate-500">prod-us-east-1</p>
+                </div>
               </div>
-              {dictionary.hero.orbitLabels.map((label, index) => {
-                const positions = [
-                  "left-6 top-8",
-                  "right-4 top-20",
-                  "bottom-10 left-12",
-                  "bottom-8 right-12"
-                ];
-                return (
+
+              <nav className="mt-6 space-y-1.5">
+                {[
+                  { label: "Overview", icon: ChartNoAxesCombined },
+                  { label: "Projects", icon: Boxes },
+                  { label: "Agents", icon: Bot },
+                  { label: "Tickets", icon: TicketCheck },
+                  { label: "Billing", icon: CircleDollarSign },
+                  { label: "Workflows", icon: Workflow }
+                ].map((item, index) => (
                   <div
-                    key={label}
-                    className={`absolute ${positions[index]} rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-slate-200 shadow-glow backdrop-blur-xl`}
+                    key={item.label}
+                    className={`flex items-center gap-2 rounded-md px-3 py-2 text-xs font-semibold ${
+                      index === 0
+                        ? "border border-cyan-200/20 bg-cyan-300/10 text-cyan-50"
+                        : "text-slate-500"
+                    }`}
                   >
-                    {label}
+                    <item.icon className="h-3.5 w-3.5" />
+                    {item.label}
                   </div>
-                );
-              })}
-              <div className="absolute inset-x-5 bottom-5 h-16 overflow-hidden rounded-lg border border-white/10 bg-white/[0.04]">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-300/10 via-violet-400/10 to-emerald-300/10" />
-                <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-cyan-200/18 to-transparent animate-scan" />
-                <div className="relative flex h-full items-center justify-around">
-                  {[28, 58, 42, 76, 64, 88, 54].map((height, index) => (
-                    <span
-                      key={`${height}-${index}`}
-                      className="w-5 rounded-t-full bg-cyan-200/60 shadow-cyan-glow"
-                      style={{ height: `${height}%` }}
-                    />
+                ))}
+              </nav>
+
+              <div className="mt-6 rounded-lg border border-emerald-300/15 bg-emerald-300/8 p-3">
+                <p className="text-[0.66rem] font-bold uppercase tracking-[0.14em] text-emerald-100">
+                  Database
+                </p>
+                <p className="mt-2 text-xl font-semibold text-white">128ms</p>
+                <p className="text-[0.68rem] text-slate-500">query p95</p>
+              </div>
+            </aside>
+
+            <div className="min-w-0">
+              <header className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.035] px-4 py-3">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-100">
+                    Live Workspace
+                  </p>
+                  <h2 className="mt-1 text-xl font-semibold text-white">
+                    Hyper Galaxy OS
+                  </h2>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="hidden h-9 w-48 items-center gap-2 rounded-full border border-white/10 bg-slate-950/60 px-3 text-xs text-slate-500 min-[1400px]:flex">
+                    <Search className="h-3.5 w-3.5" />
+                    Search projects, tickets, agents
+                  </div>
+                  <div className="flex -space-x-2">
+                    {workspaceUsers.slice(0, 4).map((user) => (
+                      <div
+                        key={user.name}
+                        className="grid h-9 w-9 place-items-center rounded-full border border-slate-950 bg-gradient-to-br from-cyan-200/80 to-violet-300/80 text-[0.65rem] font-bold text-slate-950"
+                        title={`${user.name} - ${user.status}`}
+                      >
+                        {user.initials}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </header>
+
+              <div className="mt-4 grid grid-cols-2 gap-3 min-[1400px]:grid-cols-4">
+                {operationalMetrics.map((metric) => (
+                  <div
+                    key={metric.label}
+                    className="rounded-lg border border-white/10 bg-slate-950/58 p-3"
+                  >
+                    <p className="text-[0.64rem] font-bold uppercase tracking-[0.12em] text-slate-500">
+                      {metric.label}
+                    </p>
+                    <p className="mt-2 text-xl font-semibold text-white">{metric.value}</p>
+                    <p className="mt-1 text-[0.68rem] font-semibold text-emerald-200">
+                      {metric.trend}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4 grid grid-cols-[1.12fr_0.88fr] gap-4">
+                <div className="rounded-lg border border-white/10 bg-slate-950/58 p-4">
+                  <div className="mb-4 flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-white">Projects pipeline</p>
+                      <p className="text-[0.68rem] text-slate-500">3 active deployments</p>
+                    </div>
+                    <Badge variant="success" className="gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                      Live
+                    </Badge>
+                  </div>
+
+                  <div className="space-y-3">
+                    {activeProjects.map((project) => (
+                      <div
+                        key={project.name}
+                        className="rounded-md border border-white/8 bg-white/[0.035] p-3"
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <div>
+                            <p className="text-sm font-semibold text-white">{project.name}</p>
+                            <p className="mt-1 text-[0.68rem] text-slate-500">
+                              {project.owner} - {project.status}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm font-semibold text-cyan-100">
+                              {project.budget}
+                            </p>
+                            <p className="text-[0.68rem] text-slate-500">
+                              {project.agents} agents
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-3 h-1.5 rounded-full bg-white/8">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-violet-400"
+                            style={{ width: `${project.progress}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="rounded-lg border border-white/10 bg-slate-950/58 p-4">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-semibold text-white">AI consumption</p>
+                      <span className="text-xs font-semibold text-cyan-100">$8.4k</span>
+                    </div>
+                    <div className="mt-4 flex h-28 items-end gap-1.5 rounded-md border border-white/8 bg-white/[0.025] p-3">
+                      {aiUsageByDay.map((value, index) => (
+                        <span
+                          key={`${value}-${index}`}
+                          className="w-full rounded-t-sm bg-cyan-200/70"
+                          style={{ height: `${value}%` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg border border-white/10 bg-slate-950/58 p-4">
+                    <p className="text-sm font-semibold text-white">Agent health</p>
+                    <div className="mt-3 space-y-2">
+                      {aiAgents.slice(0, 3).map((agent) => (
+                        <div
+                          key={agent.name}
+                          className="flex items-center justify-between rounded-md border border-white/8 bg-white/[0.035] px-3 py-2"
+                        >
+                          <span className="truncate text-xs font-semibold text-slate-300">
+                            {agent.name}
+                          </span>
+                          <span className="font-mono text-xs text-cyan-100">
+                            {agent.accuracy}%
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-lg border border-white/10 bg-slate-950/58 p-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="text-sm font-semibold text-white">Tickets requiring action</p>
+                  <span className="text-xs font-semibold text-slate-500">SLA clock</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {ticketQueue.map((ticket) => (
+                    <div
+                      key={ticket.id}
+                      className="rounded-md border border-white/8 bg-white/[0.035] p-3"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[0.66rem] text-cyan-100">
+                          {ticket.id}
+                        </span>
+                        <span className="rounded-full bg-red-400/10 px-2 py-0.5 text-[0.62rem] font-bold text-red-100">
+                          {ticket.priority}
+                        </span>
+                      </div>
+                      <p className="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-white">
+                        {ticket.title}
+                      </p>
+                      <p className="mt-2 text-[0.68rem] text-slate-500">
+                        {ticket.customer} - {ticket.sla}
+                      </p>
+                    </div>
                   ))}
                 </div>
               </div>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { icon: Zap, title: "Automation", value: "48.2k" },
-                { icon: CircuitBoard, title: "AI Routing", value: "99.2%" },
-                { icon: Cpu, title: "Inference", value: "12 GPU" }
-              ].map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-lg border border-white/10 bg-white/[0.045] p-4"
-                >
-                  <item.icon className="h-5 w-5 text-cyan-100" />
-                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
-                    {item.title}
-                  </p>
-                  <p className="mt-1 text-2xl font-semibold text-white">{item.value}</p>
-                </div>
-              ))}
             </div>
           </div>
         </div>

@@ -65,26 +65,26 @@ export const dictionaries = {
       tickets: "Tickets",
       impact: "Impacto",
       login: "Entrar",
-      start: "Iniciar Projeto"
+      start: "Acessar Plataforma"
     },
     hero: {
       eyebrow: "AI Intelligence Infrastructure",
-      title: "Tecnologia, IA e automação para empresas modernas.",
+      title: "Hyper Galaxy OS para operar IA, tickets, projetos e billing em tempo real.",
       subtitle:
-        "Construímos sistemas inteligentes, automações e plataformas escaláveis para a nova era digital.",
-      primary: "Iniciar Projeto",
-      secondary: "Explorar Plataforma",
+        "Uma plataforma SaaS multiusuário para gerenciar agentes de IA, workflows, consumo, clientes e operações enterprise em um único sistema.",
+      primary: "Acessar Plataforma",
+      secondary: "Ver Produto",
       typingPrefix: "Hyper Galaxy OS",
       typingPhrases: [
-        "Build AI Systems",
-        "Automate Everything",
-        "Scale Beyond Limits",
-        "Galactic Intelligence Infrastructure"
+        "127 AI agents online",
+        "284k workflow runs this month",
+        "$8,421 AI spend optimized",
+        "97.3% ticket SLA performance"
       ],
       stats: [
-        { label: "Latência média", value: "38ms" },
+        { label: "Clientes em operação", value: "42" },
         { label: "Agentes ativos", value: "127" },
-        { label: "Workflows hoje", value: "48.2k" }
+        { label: "Execuções mensais", value: "284k" }
       ],
       orbitLabels: ["Agents", "Billing", "Tickets", "Automations"]
     },
@@ -204,9 +204,9 @@ export const dictionaries = {
     },
     dashboard: {
       eyebrow: "Dashboard Preview",
-      title: "Um sistema operacional empresarial para IA, automações e entregas SaaS.",
+      title: "Um painel SaaS real para operar clientes, agentes, tickets, projetos e billing.",
       subtitle:
-        "Acompanhe projetos, tickets, agentes, billing e uso de IA em uma interface desenhada para decisões rápidas.",
+        "Acompanhe usuários, SLAs, custos de IA, workflows, filas de suporte, projetos e eventos de sistema em uma interface de produto enterprise.",
       sidebar: ["Command", "Agents", "Projects", "Billing", "Tickets"],
       cards: [
         { icon: "boxes", label: "Projetos ativos", value: "24", trend: "+18%" },
@@ -288,26 +288,26 @@ export const dictionaries = {
       tickets: "Tickets",
       impact: "Impact",
       login: "Sign in",
-      start: "Start Project"
+      start: "Open Platform"
     },
     hero: {
       eyebrow: "AI Intelligence Infrastructure",
-      title: "Technology, AI and automation for modern companies.",
+      title: "Hyper Galaxy OS for operating AI, tickets, projects and billing in real time.",
       subtitle:
-        "We build intelligent systems, automations and scalable platforms for the new digital era.",
-      primary: "Start Project",
-      secondary: "Explore Platform",
+        "A multi-user SaaS platform to manage AI agents, workflows, usage, customers and enterprise operations in one system.",
+      primary: "Open Platform",
+      secondary: "View Product",
       typingPrefix: "Hyper Galaxy OS",
       typingPhrases: [
-        "Build AI Systems",
-        "Automate Everything",
-        "Scale Beyond Limits",
-        "Galactic Intelligence Infrastructure"
+        "127 AI agents online",
+        "284k workflow runs this month",
+        "$8,421 AI spend optimized",
+        "97.3% ticket SLA performance"
       ],
       stats: [
-        { label: "Average latency", value: "38ms" },
+        { label: "Live customers", value: "42" },
         { label: "Active agents", value: "127" },
-        { label: "Workflows today", value: "48.2k" }
+        { label: "Monthly executions", value: "284k" }
       ],
       orbitLabels: ["Agents", "Billing", "Tickets", "Automations"]
     },
@@ -427,9 +427,9 @@ export const dictionaries = {
     },
     dashboard: {
       eyebrow: "Dashboard Preview",
-      title: "A business operating system for AI, automation and SaaS delivery.",
+      title: "A real SaaS dashboard for customers, agents, tickets, projects and billing.",
       subtitle:
-        "Track projects, tickets, agents, billing and AI usage in an interface designed for fast decisions.",
+        "Track users, SLAs, AI costs, workflows, support queues, projects and system events in an enterprise product interface.",
       sidebar: ["Command", "Agents", "Projects", "Billing", "Tickets"],
       cards: [
         { icon: "boxes", label: "Active projects", value: "24", trend: "+18%" },
