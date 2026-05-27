@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import { MagneticButton } from "@/components/site/magnetic-button";
 import { Badge } from "@/components/ui/badge";
-import { GalaxyScene } from "@/components/visuals/galaxy-scene";
 import { brandAssets } from "@/lib/brand-assets";
 import type { Dictionary } from "@/lib/i18n";
 import {
@@ -76,8 +75,7 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
       id="top"
       className="relative flex min-h-screen items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6 lg:px-8"
     >
-      <GalaxyScene />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_42%,rgba(34,211,238,0.10),transparent_28%),linear-gradient(180deg,rgba(3,7,18,0.08),#030712_94%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_42%,rgba(34,211,238,0.08),transparent_28%),linear-gradient(180deg,rgba(3,7,18,0.05),rgba(3,7,18,0.70)_96%)]" />
       <div
         className="absolute left-[8%] top-28 hidden h-56 w-56 rounded-full bg-cyan-300/10 blur-3xl lg:block"
         data-parallax="64"

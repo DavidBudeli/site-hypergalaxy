@@ -14,6 +14,7 @@ import { LogoSliderSection } from "@/components/sections/logo-slider-section";
 import { MarketplaceSection } from "@/components/sections/marketplace-section";
 import { TicketsSection } from "@/components/sections/tickets-section";
 import { SiteHeader } from "@/components/site/site-header";
+import { CosmicBackground } from "@/components/visuals/cosmic-background";
 import { dictionaries, type Locale } from "@/lib/i18n";
 
 export function SiteShell() {
@@ -242,11 +243,7 @@ export function SiteShell() {
 
   return (
     <>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_18%_18%,rgba(124,58,237,0.11),transparent_28rem),radial-gradient(circle_at_80%_30%,rgba(34,211,238,0.09),transparent_32rem),linear-gradient(120deg,transparent,rgba(148,163,184,0.04),transparent)]"
-        data-space-depth
-      />
+      <CosmicBackground />
       <SiteHeader
         dictionary={dictionary}
         locale={locale}
