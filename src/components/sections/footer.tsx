@@ -12,7 +12,7 @@ export function Footer({ dictionary }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative z-10 border-t border-white/10 bg-[#030712]/88 px-4 py-12 backdrop-blur-xl sm:px-6">
+    <footer className="relative z-10 border-t border-white/10 bg-[#030712]/88 px-4 py-12 backdrop-blur-md sm:px-6">
       <div className="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
           <a href="#top" className="inline-flex items-center rounded-lg">

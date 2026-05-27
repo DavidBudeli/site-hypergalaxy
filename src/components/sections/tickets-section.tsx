@@ -31,7 +31,7 @@ export function TicketsSection({ dictionary }: TicketsSectionProps) {
                   <div
                     key={item.title}
                     data-pinned-card
-                    className="relative rounded-lg border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl transition-colors duration-300 hover:border-cyan-200/24"
+                    className="relative rounded-lg border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md transition-colors duration-300 hover:border-cyan-200/24"
                   >
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                       <div className="z-10 grid h-14 w-14 shrink-0 place-items-center rounded-lg border border-cyan-200/20 bg-slate-950 text-cyan-100 shadow-cyan-glow">

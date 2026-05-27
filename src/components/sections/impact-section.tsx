@@ -51,7 +51,7 @@ function AnimatedMetric({ metric }: { metric: Metric }) {
   return (
     <div
       ref={ref}
-      className="rounded-lg border border-white/10 bg-white/[0.04] p-5 text-center shadow-glow backdrop-blur-xl"
+      className="rounded-lg border border-white/10 bg-white/[0.04] p-5 text-center shadow-glow backdrop-blur-md"
       data-reveal
     >
       <div className="text-4xl font-semibold text-white">

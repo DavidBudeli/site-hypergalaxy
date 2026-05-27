@@ -153,11 +153,11 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
       data-dashboard-story
     >
       <div
-        className="absolute right-[6%] top-20 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"
+        className="absolute right-[6%] top-20 h-80 w-80 rounded-full bg-blue-500/10 blur-lg"
         data-parallax="-48"
       />
       <div
-        className="absolute left-[10%] bottom-24 h-72 w-72 rounded-full bg-cyan-300/8 blur-3xl"
+        className="absolute left-[10%] bottom-24 h-72 w-72 rounded-full bg-cyan-300/8 blur-lg"
         data-parallax="46"
       />
       <div className="section-inner lg:sticky lg:top-20">
@@ -240,10 +240,10 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={scenario.id}
-                      initial={{ opacity: 0, y: 14, filter: "blur(8px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
-                      transition={{ duration: 0.34, ease: "easeOut" }}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.24, ease: "easeOut" }}
                     >
                       <div className="flex flex-wrap items-center gap-2">
                         <Badge variant="success" className="gap-2">
@@ -292,7 +292,7 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                     key={`${scenario.id}-${metric.label}`}
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.38, ease: "easeOut" }}
+                    transition={{ duration: 0.24, ease: "easeOut" }}
                     className="rounded-lg border border-white/10 bg-slate-950/62 p-4"
                   >
                     <div className="flex items-center justify-between">
@@ -361,7 +361,7 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                         key={`${value}-${index}`}
                         initial={{ height: "24%" }}
                         animate={{ height: `${value}%` }}
-                        transition={{ duration: 0.42, ease: "easeOut" }}
+                        transition={{ duration: 0.24, ease: "easeOut" }}
                         className="w-full rounded-t-sm bg-gradient-to-t from-cyan-300 to-violet-300"
                       />
                     ))}

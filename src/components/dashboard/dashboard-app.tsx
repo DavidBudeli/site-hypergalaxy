@@ -111,7 +111,7 @@ export function DashboardApp() {
       <div className="absolute inset-0 bg-holo-grid bg-[size:76px_76px] opacity-[0.06]" />
 
       <div className="relative z-10 grid min-h-screen lg:grid-cols-[260px_1fr]">
-        <aside className="hidden border-r border-white/10 bg-slate-950/50 p-5 backdrop-blur-xl lg:block">
+        <aside className="hidden border-r border-white/10 bg-slate-950/50 p-5 backdrop-blur-md lg:block">
           <Link href="/" className="flex items-center gap-3">
             <Image
               src={brandAssets.logoCompact}
@@ -166,7 +166,7 @@ export function DashboardApp() {
         </aside>
 
         <section className="min-w-0 px-4 py-5 sm:px-6 lg:px-8">
-          <header className="flex flex-col gap-4 rounded-lg border border-white/10 bg-slate-950/54 p-4 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+          <header className="flex flex-col gap-4 rounded-lg border border-white/10 bg-slate-950/54 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
                 Hyper Galaxy OS
@@ -195,7 +195,7 @@ export function DashboardApp() {
             {metrics.map((metric) => (
               <div
                 key={metric.label}
-                className="rounded-lg border border-white/10 bg-slate-950/54 p-5 shadow-glow backdrop-blur-xl"
+                className="rounded-lg border border-white/10 bg-slate-950/54 p-5 shadow-glow backdrop-blur-md"
               >
                 <div className="flex items-center justify-between">
                   <metric.icon className="h-5 w-5 text-cyan-100" />
@@ -210,7 +210,7 @@ export function DashboardApp() {
           </div>
 
           <div className="mt-5 grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-xl">
+            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-md">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-sm font-semibold text-white">Agent mesh</p>
@@ -262,7 +262,7 @@ export function DashboardApp() {
             </div>
 
             <div className="grid gap-4">
-              <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-xl">
+              <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-md">
                 <div className="flex items-center gap-3">
                   <Activity className="h-5 w-5 text-cyan-100" />
                   <p className="font-semibold text-white">Operational pulse</p>
@@ -278,7 +278,7 @@ export function DashboardApp() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-xl">
+              <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-md">
                 <div className="flex items-center justify-between">
                   <p className="font-semibold text-white">Tickets queue</p>
                   <Badge variant="violet">{tickets.length} open</Badge>
@@ -304,17 +304,17 @@ export function DashboardApp() {
           </div>
 
           <div className="mt-5 grid gap-4 lg:grid-cols-3">
-            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-xl">
+            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-md">
               <CircleDollarSign className="h-5 w-5 text-amber-100" />
               <p className="mt-4 text-sm font-semibold text-slate-400">Next invoice</p>
               <p className="mt-2 text-3xl font-semibold text-white">R$ 18.420</p>
             </div>
-            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-xl">
+            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-md">
               <ServerCog className="h-5 w-5 text-cyan-100" />
               <p className="mt-4 text-sm font-semibold text-slate-400">Infrastructure</p>
               <p className="mt-2 text-3xl font-semibold text-white">99.99%</p>
             </div>
-            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-xl">
+            <div className="rounded-lg border border-white/10 bg-slate-950/54 p-5 backdrop-blur-md">
               <Zap className="h-5 w-5 text-violet-100" />
               <p className="mt-4 text-sm font-semibold text-slate-400">Automations today</p>
               <p className="mt-2 text-3xl font-semibold text-white">8.7k</p>

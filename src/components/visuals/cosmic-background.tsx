@@ -1,15 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-
-const CosmicCanvas = dynamic(
-  () => import("@/components/visuals/cosmic-canvas").then((mod) => mod.CosmicCanvas),
-  {
-    ssr: false,
-    loading: () => <StaticCosmicBackdrop />
-  }
-);
+import { CosmicCanvas } from "@/components/visuals/cosmic-canvas";
 
 function StaticCosmicBackdrop() {
   return (
@@ -17,11 +9,12 @@ function StaticCosmicBackdrop() {
       className="fixed inset-0 z-0 overflow-hidden bg-[#030712]"
       data-space-depth
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_12%,rgba(109,40,217,0.22),transparent_34rem),radial-gradient(ellipse_at_88%_18%,rgba(6,182,212,0.15),transparent_36rem),radial-gradient(ellipse_at_68%_82%,rgba(37,99,235,0.12),transparent_34rem),linear-gradient(180deg,#030712_0%,#050816_46%,#081120_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.52)_0.45px,transparent_1px)] bg-[length:46px_46px] opacity-35" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(103,232,249,0.35)_0.35px,transparent_1px)] bg-[length:89px_89px] opacity-20" />
-      <div className="absolute -right-28 top-[14%] h-[30rem] w-[30rem] bg-[radial-gradient(ellipse_at_36%_35%,rgba(148,163,184,0.28),rgba(37,99,235,0.10)_34%,rgba(3,7,18,0)_68%)] blur-xl" />
-      <div className="absolute -left-24 bottom-[8%] h-[34rem] w-[34rem] bg-[radial-gradient(ellipse_at_55%_42%,rgba(124,58,237,0.18),rgba(3,7,18,0)_68%)] blur-2xl" />
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-90"
+        style={{ backgroundImage: "url('/cosmic/hyper-galaxy-space-mobile.jpg')" }}
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.44)_0.45px,transparent_1px)] bg-[length:64px_64px] opacity-25" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,18,0.16),rgba(3,7,18,0.7)_100%)]" />
     </div>
   );
 }

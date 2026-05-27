@@ -45,19 +45,19 @@ export function SiteShell() {
     }
 
     gsap.registerPlugin(ScrollTrigger);
-    const desktopMotion = window.matchMedia("(min-width: 768px)");
+    const desktopMotion = window.matchMedia("(min-width: 1024px)");
     const cinematicMotion = window.matchMedia("(min-width: 1024px)");
     let lenis: Lenis | undefined;
     let ticker: ((time: number) => void) | undefined;
 
     if (desktopMotion.matches) {
       lenis = new Lenis({
-        duration: 1.18,
+        duration: 0.78,
         easing: (time) => Math.min(1, 1.001 - 2 ** (-10 * time)),
-        lerp: 0.085,
+        lerp: 0.13,
         smoothWheel: true,
         syncTouch: false,
-        wheelMultiplier: 0.82
+        wheelMultiplier: 0.94
       });
 
       lenis.on("scroll", ScrollTrigger.update);
@@ -90,12 +90,11 @@ export function SiteShell() {
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
         gsap.fromTo(
           element,
-          { autoAlpha: 0, filter: "blur(12px)", y: 42 },
+          { autoAlpha: 0, y: 28 },
           {
             autoAlpha: 1,
-            filter: "blur(0px)",
             y: 0,
-            duration: 1.05,
+            duration: 0.72,
             ease: "power3.out",
             scrollTrigger: {
               trigger: element,
@@ -106,57 +105,21 @@ export function SiteShell() {
         );
       });
 
-      gsap.utils
-        .toArray<HTMLElement>(
-          ".section-shell:not([data-horizontal-section]):not([data-dashboard-story]):not([data-pinned-cards-section])"
-        )
-        .forEach((section) => {
-          gsap.fromTo(
-            section,
-            { autoAlpha: 0.72, filter: "blur(10px)", scale: 0.985, y: 70 },
-            {
-              autoAlpha: 1,
-              filter: "blur(0px)",
-              scale: 1,
-              y: 0,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 92%",
-                end: "top 46%",
-                scrub: 0.8
-              }
-            }
-          );
-        });
-
-      gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((element) => {
-        const distance = Number(element.dataset.parallax || 40);
-        gsap.to(element, {
-          y: distance,
-          ease: "none",
-          scrollTrigger: {
-            trigger: element,
-            scrub: true,
-            start: "top bottom",
-            end: "bottom top"
-          }
-        });
-      });
-
-      gsap.to("[data-space-depth]", {
-        yPercent: 10,
-        scale: 1.08,
-        ease: "none",
-        scrollTrigger: {
-          trigger: document.body,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: true
-        }
-      });
-
       if (cinematicMotion.matches) {
+        gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((element) => {
+          const distance = Number(element.dataset.parallax || 30) * 0.42;
+          gsap.to(element, {
+            y: distance,
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              scrub: 0.45,
+              start: "top bottom",
+              end: "bottom top"
+            }
+          });
+        });
+
         gsap.utils
           .toArray<HTMLElement>("[data-horizontal-section]")
           .forEach((section) => {
@@ -176,7 +139,7 @@ export function SiteShell() {
                 trigger: section,
                 start: "top top",
                 end: () => `+=${getTravel() + window.innerHeight * 0.9}`,
-                scrub: 1,
+                scrub: 0.45,
                 pin: true,
                 anticipatePin: 1,
                 invalidateOnRefresh: true
@@ -196,7 +159,6 @@ export function SiteShell() {
 
             gsap.set(cards, {
               autoAlpha: 0,
-              filter: "blur(14px)",
               x: (index) => (index % 2 === 0 ? 110 : -110)
             });
 
@@ -217,7 +179,6 @@ export function SiteShell() {
                 card,
                 {
                   autoAlpha: 1,
-                  filter: "blur(0px)",
                   x: 0,
                   duration: 1,
                   ease: "power3.out"

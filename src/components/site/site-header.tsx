@@ -32,7 +32,7 @@ export function SiteHeader({
 }: SiteHeaderProps) {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 overflow-hidden px-2 pt-3 sm:px-5">
-      <div className="mx-auto flex h-16 w-[calc(100vw-1rem)] max-w-7xl min-w-0 items-center justify-start overflow-hidden rounded-full border border-white/10 bg-slate-950/56 px-3 shadow-[0_16px_60px_rgba(0,0,0,0.28)] backdrop-blur-2xl sm:w-full sm:justify-between sm:px-4">
+      <div className="mx-auto flex h-16 w-[calc(100vw-1rem)] max-w-7xl min-w-0 items-center justify-start overflow-hidden rounded-full border border-white/10 bg-slate-950/64 px-3 shadow-[0_16px_48px_rgba(0,0,0,0.24)] backdrop-blur-lg sm:w-full sm:justify-between sm:px-4">
         <a
           href="#top"
           className="group flex min-w-0 shrink-0 items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"

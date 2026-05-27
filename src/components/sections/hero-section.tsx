@@ -77,11 +77,11 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_42%,rgba(34,211,238,0.02),transparent_28%),linear-gradient(180deg,rgba(3,7,18,0),rgba(3,7,18,0.06)_96%)]" />
       <div
-        className="absolute left-[8%] top-28 hidden h-56 w-56 rounded-full bg-cyan-300/10 blur-3xl lg:block"
+        className="absolute left-[8%] top-28 hidden h-56 w-56 rounded-full bg-cyan-300/10 blur-lg lg:block"
         data-parallax="64"
       />
       <div
-        className="absolute bottom-20 right-[10%] hidden h-72 w-72 rounded-full bg-violet-500/12 blur-3xl lg:block"
+        className="absolute bottom-20 right-[10%] hidden h-72 w-72 rounded-full bg-violet-500/12 blur-lg lg:block"
         data-parallax="-48"
       />
 
@@ -99,7 +99,7 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
             {dictionary.hero.subtitle}
           </p>
 
-          <div className="mt-7 flex min-h-12 w-full max-w-full min-w-0 flex-wrap items-center gap-3 overflow-hidden rounded-full border border-cyan-200/14 bg-slate-950/50 px-4 py-3 shadow-cyan-glow backdrop-blur-xl sm:inline-flex sm:w-auto">
+          <div className="mt-7 flex min-h-12 w-full max-w-full min-w-0 flex-wrap items-center gap-3 overflow-hidden rounded-full border border-cyan-200/14 bg-slate-950/50 px-4 py-3 shadow-cyan-glow backdrop-blur-md sm:inline-flex sm:w-auto">
             <span className="flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
               <Cpu className="h-4 w-4" />
               {dictionary.hero.typingPrefix}
@@ -130,7 +130,7 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
             {dictionary.hero.stats.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-lg border border-white/10 bg-white/[0.035] p-4 backdrop-blur-xl"
+                className="rounded-lg border border-white/10 bg-white/[0.035] p-4 backdrop-blur-md"
               >
                 <div className="text-2xl font-semibold text-white">{stat.value}</div>
                 <div className="mt-1 text-xs font-medium text-slate-400">{stat.label}</div>
@@ -153,7 +153,7 @@ function HeroCommandDeck() {
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="absolute inset-0 rounded-full bg-cyan-300/10 blur-3xl" />
+      <div className="absolute inset-0 rounded-full bg-cyan-300/10 blur-lg" />
       <div className="holo-border absolute right-0 top-4 w-[580px] rounded-lg min-[1400px]:w-[650px]">
         <div className="glass-panel relative overflow-hidden rounded-lg p-4">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />

@@ -31,7 +31,7 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
         data-parallax="-24"
       />
       <div
-        className="absolute left-[12%] top-24 h-72 w-72 rounded-full bg-cyan-300/10 blur-3xl"
+        className="absolute left-[12%] top-24 h-72 w-72 rounded-full bg-cyan-300/10 blur-lg"
         data-parallax="58"
       />
       <div className="section-inner">
@@ -76,7 +76,7 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
               >
                 <Card className="group relative h-full min-h-[430px] overflow-hidden border-white/10 bg-slate-950/64">
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent opacity-60" />
-                  <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-cyan-300/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-cyan-300/10 blur-md transition-opacity duration-300 group-hover:opacity-100" />
                   <CardHeader className="relative">
                     <div className="flex items-start justify-between gap-4">
                       <div className="grid h-14 w-14 place-items-center overflow-hidden rounded-lg border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">

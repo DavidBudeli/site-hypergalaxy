@@ -16,11 +16,11 @@ export function AboutSection({ dictionary }: AboutSectionProps) {
   return (
     <section className="section-shell">
       <div
-        className="absolute left-0 top-24 h-80 w-80 rounded-full bg-violet-500/10 blur-3xl"
+        className="absolute left-0 top-24 h-80 w-80 rounded-full bg-violet-500/10 blur-lg"
         data-parallax="-42"
       />
       <div
-        className="absolute bottom-10 right-0 h-96 w-96 rounded-full bg-cyan-300/8 blur-3xl"
+        className="absolute bottom-10 right-0 h-96 w-96 rounded-full bg-cyan-300/8 blur-lg"
         data-parallax="54"
       />
       <div className="section-inner">

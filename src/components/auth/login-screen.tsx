@@ -139,8 +139,8 @@ export function LoginScreen() {
     <main className="relative min-h-screen overflow-hidden px-4 py-6 sm:px-6 lg:px-8">
       <div className="absolute inset-0 bg-galaxy-radial opacity-80" />
       <div className="absolute inset-0 bg-holo-grid bg-[size:76px_76px] opacity-[0.08]" />
-      <div className="absolute left-[8%] top-20 h-80 w-80 rounded-full bg-cyan-300/10 blur-3xl" />
-      <div className="absolute bottom-0 right-[10%] h-96 w-96 rounded-full bg-violet-500/12 blur-3xl" />
+      <div className="absolute left-[8%] top-20 h-80 w-80 rounded-full bg-cyan-300/10 blur-lg" />
+      <div className="absolute bottom-0 right-[10%] h-96 w-96 rounded-full bg-violet-500/12 blur-lg" />
 
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link
@@ -158,7 +158,7 @@ export function LoginScreen() {
           />
         </Link>
 
-        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-xl">
+        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-md">
           <Languages className="ml-2 hidden h-3.5 w-3.5 text-cyan-200 sm:block" />
           {(["pt", "en"] as Locale[]).map((item) => (
             <button
@@ -181,7 +181,7 @@ export function LoginScreen() {
 
       <section className="relative z-10 mx-auto grid min-h-[calc(100vh-6rem)] w-full max-w-7xl items-center gap-10 py-12 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="max-w-2xl">
-          <div className="mb-7 hidden max-w-md rounded-2xl border border-white/10 bg-white/[0.035] p-3 shadow-glow backdrop-blur-xl sm:block">
+          <div className="mb-7 hidden max-w-md rounded-2xl border border-white/10 bg-white/[0.035] p-3 shadow-glow backdrop-blur-md sm:block">
             <Image
               src={brandAssets.nova.interfaceCard}
               alt="Nova, assistente IA da Hyper Galaxy, online"
@@ -206,7 +206,7 @@ export function LoginScreen() {
             {copy.features.map((feature) => (
               <div
                 key={feature}
-                className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur-xl"
+                className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur-md"
               >
                 <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-200" />
                 <span className="text-sm font-medium text-slate-300">{feature}</span>
@@ -218,7 +218,7 @@ export function LoginScreen() {
         <div className="holo-border rounded-lg">
           <div className="glass-panel relative overflow-hidden rounded-lg p-5 sm:p-7">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
-            <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-300/10 blur-3xl" />
+            <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-300/10 blur-lg" />
 
             <div className="relative flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">

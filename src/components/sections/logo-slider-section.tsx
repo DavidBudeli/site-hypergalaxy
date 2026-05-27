@@ -18,7 +18,7 @@ export function LogoSliderSection({ dictionary }: LogoSliderSectionProps) {
         />
 
         <div
-          className="relative mt-12 overflow-hidden rounded-lg border border-white/10 bg-white/[0.035] py-5 shadow-glow backdrop-blur-xl"
+          className="relative mt-12 overflow-hidden rounded-lg border border-white/10 bg-white/[0.035] py-5 shadow-glow backdrop-blur-md"
           data-reveal
         >
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#030712] to-transparent" />

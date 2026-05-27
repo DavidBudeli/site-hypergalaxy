@@ -15,8 +15,8 @@ export function FinalCtaSection({ dictionary }: FinalCtaSectionProps) {
           <div className="relative min-h-[420px] overflow-hidden rounded-lg border border-white/10 bg-[#050816] px-6 py-16 text-center shadow-glow sm:px-12">
             <div className="absolute inset-0 bg-galaxy-radial opacity-90" />
             <div className="absolute inset-0 bg-holo-grid bg-[size:52px_52px] opacity-10" />
-            <div className="absolute left-1/2 top-0 h-56 w-[70%] -translate-x-1/2 rounded-full bg-cyan-300/12 blur-3xl" />
-            <div className="absolute bottom-0 right-0 h-60 w-60 rounded-full bg-violet-500/14 blur-3xl" />
+            <div className="absolute left-1/2 top-0 h-56 w-[70%] -translate-x-1/2 rounded-full bg-cyan-300/12 blur-lg" />
+            <div className="absolute bottom-0 right-0 h-60 w-60 rounded-full bg-violet-500/14 blur-lg" />
             <div className="relative z-10 mx-auto max-w-3xl">
               <Badge className="gap-2">
                 <Sparkles className="h-3.5 w-3.5" />
