@@ -41,7 +41,7 @@ export function CosmicBackground() {
   const [useCanvas, setUseCanvas] = useState(false);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 768px)");
+    const desktop = window.matchMedia("(min-width: 1024px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const update = () => {
