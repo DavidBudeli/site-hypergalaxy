@@ -6,6 +6,7 @@ import * as THREE from "three";
 
 const deepBluePlanet = ["#061322", "#0E3A5E", "#1D76A3", "#67E8F9", "#F0FDFF"];
 const violetPlanet = ["#120B22", "#3A2467", "#7C3AED", "#A78BFA", "#F5F3FF"];
+const bitmapPlanetSurfaceCache = new Map<string, HTMLCanvasElement>();
 
 function seeded(index: number, salt: number) {
   const value = Math.sin(index * 127.1 + salt * 311.7) * 43758.5453123;
@@ -536,7 +537,6 @@ function AtmosphereMaterial({ color }: { color: string }) {
         `,
         fragmentShader: `
           uniform vec3 glowColor;
-          uniform vec3 cameraPosition;
           varying vec3 vNormal;
           varying vec3 vWorldPosition;
           void main() {
@@ -752,24 +752,32 @@ function drawNebula(
   context.ellipse(0, 0, 1, 0.44, 0, 0, Math.PI * 2);
   context.fill();
 
-  context.filter = "blur(10px)";
-  context.globalAlpha = alpha * 0.48;
-  for (let index = 0; index < 18; index += 1) {
-    const offset = index / 18;
-    context.strokeStyle =
-      index % 2 === 0 ? "rgba(103,232,249,0.28)" : "rgba(167,139,250,0.22)";
-    context.lineWidth = 0.012;
+  context.filter = "blur(18px)";
+  for (let index = 0; index < 26; index += 1) {
+    const offset = index / 26;
+    const px = (seeded(index, 301) - 0.5) * 1.1;
+    const py = (seeded(index, 302) - 0.5) * 0.72;
+    const patchRadius = 0.12 + seeded(index, 303) * 0.32;
+    const cloud = context.createRadialGradient(px, py, 0, px, py, patchRadius);
+    cloud.addColorStop(
+      0,
+      index % 2 === 0 ? "rgba(103,232,249,0.2)" : "rgba(167,139,250,0.18)"
+    );
+    cloud.addColorStop(0.64, "rgba(37,99,235,0.08)");
+    cloud.addColorStop(1, "rgba(3,7,18,0)");
+    context.globalAlpha = alpha * (0.06 + seeded(index, 304) * 0.1);
+    context.fillStyle = cloud;
     context.beginPath();
     context.ellipse(
-      Math.sin(index * 1.7) * 0.14,
-      (offset - 0.5) * 0.68,
-      0.88 - offset * 0.3,
-      0.08 + offset * 0.18,
-      offset * 1.7,
+      px,
+      py,
+      patchRadius * (1.2 + seeded(index, 305) * 1.8),
+      patchRadius * (0.28 + seeded(index, 306) * 0.7),
+      offset * 3.4,
       0,
       Math.PI * 2
     );
-    context.stroke();
+    context.fill();
   }
 
   context.restore();
@@ -816,6 +824,118 @@ function drawGalaxy(
   }
 
   context.restore();
+}
+
+function drawForegroundDust(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  scroll: number,
+  time: number,
+  pointerX: number,
+  pointerY: number
+) {
+  context.save();
+  context.globalCompositeOperation = "screen";
+  context.filter = "blur(0.5px)";
+
+  for (let index = 0; index < 260; index += 1) {
+    const depth = 0.25 + seeded(index, 501) * 1.55;
+    const lane = seeded(index, 502) - 0.5;
+    const px =
+      ((seeded(index, 503) * width +
+        time * depth * 4.8 +
+        scroll * depth * 340 +
+        pointerX * depth * 22) %
+        (width + 80)) -
+      40;
+    const py =
+      ((seeded(index, 504) * height +
+        scroll * depth * 120 +
+        pointerY * depth * 14 +
+        lane * Math.sin(time * 0.05 + index) * 10) %
+        (height + 80)) -
+      40;
+    const alpha = 0.025 + seeded(index, 505) * 0.075;
+    const length = 4 + depth * 11 + seeded(index, 506) * 8;
+
+    context.globalAlpha = alpha;
+    context.strokeStyle =
+      index % 5 === 0 ? "rgba(103,232,249,0.32)" : "rgba(226,232,240,0.42)";
+    context.lineWidth = Math.max(0.35, depth * 0.42);
+    context.beginPath();
+    context.moveTo(px, py);
+    context.lineTo(px + length * 0.72, py + length * 0.08);
+    context.stroke();
+  }
+
+  context.restore();
+}
+
+function getBitmapPlanetSurface(seed: number, palette: string[]) {
+  const cacheKey = `${seed}:${palette.join("|")}`;
+  const cached = bitmapPlanetSurfaceCache.get(cacheKey);
+
+  if (cached) {
+    return cached;
+  }
+
+  const size = 512;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const context = canvas.getContext("2d");
+
+  if (!context) {
+    return canvas;
+  }
+
+  const image = context.createImageData(size, size);
+  const white = new THREE.Color("#F8FAFC");
+  const shadow = new THREE.Color("#020617");
+
+  for (let y = 0; y < size; y += 1) {
+    for (let x = 0; x < size; x += 1) {
+      const nx = (x / size - 0.5) * 2;
+      const ny = (y / size - 0.5) * 2;
+      const radius = Math.sqrt(nx * nx + ny * ny);
+      const index = (y * size + x) * 4;
+
+      if (radius > 1) {
+        image.data[index + 3] = 0;
+        continue;
+      }
+
+      const limb = clamp(1 - radius);
+      const swirlX = nx * 2.15 + Math.sin(ny * 4.6 + seed) * 0.22;
+      const swirlY = ny * 2.35 + Math.cos(nx * 3.8 + seed) * 0.18;
+      const vapor = fbm(swirlX, swirlY, seed + 17, 6);
+      const strata = fbm(nx * 8.4 + vapor * 0.72, ny * 5.8, seed + 43, 4);
+      const storm = Math.sin((ny + vapor * 0.16) * Math.PI * 11 + seed * 0.07) * 0.5 + 0.5;
+      const ice = fbm(nx * 14 + Math.sin(ny * 8) * 0.32, ny * 9.5, seed + 71, 5);
+      const shade = clamp(vapor * 0.5 + strata * 0.25 + storm * 0.16 + limb * 0.14);
+      const band = shade * (palette.length - 1);
+      const colorA = palette[Math.min(palette.length - 1, Math.floor(band))];
+      const colorB = palette[Math.min(palette.length - 1, Math.floor(band) + 1)];
+      const color = mixHexColor(colorA, colorB, band % 1);
+      const cloudStrength = clamp((ice - 0.52) * 1.5);
+      const limbShadow = clamp((radius - 0.56) * 1.65);
+      const light = clamp(0.78 - nx * 0.22 - ny * 0.2 - radius * 0.24, 0.44, 1.08);
+
+      color.lerp(white, cloudStrength * 0.28);
+      color.lerp(shadow, limbShadow * 0.3);
+      color.multiplyScalar(light);
+
+      image.data[index] = Math.round(clamp(color.r, 0, 1) * 255);
+      image.data[index + 1] = Math.round(clamp(color.g, 0, 1) * 255);
+      image.data[index + 2] = Math.round(clamp(color.b, 0, 1) * 255);
+      image.data[index + 3] = Math.round(clamp(0.62 + limb * 0.38) * 255);
+    }
+  }
+
+  context.putImageData(image, 0, 0);
+  bitmapPlanetSurfaceCache.set(cacheKey, canvas);
+  return canvas;
 }
 
 function drawPlanet(
@@ -874,15 +994,73 @@ function drawPlanet(
   context.fillStyle = surface;
   context.fillRect(-radius, -radius, radius * 2, radius * 2);
 
-  context.globalAlpha = 0.18;
-  context.filter = "blur(1.4px)";
+  context.globalCompositeOperation = "source-over";
+  context.globalAlpha = 0.82;
+  context.drawImage(getBitmapPlanetSurface(seed, palette), -radius, -radius, radius * 2, radius * 2);
+
+  context.globalCompositeOperation = "multiply";
+  context.globalAlpha = 0.2;
+  context.filter = "blur(8px)";
+  for (let index = 0; index < 42; index += 1) {
+    const angle = seeded(index, seed + 4) * Math.PI * 2;
+    const distance = Math.sqrt(seeded(index, seed + 5)) * radius * 0.9;
+    const px = Math.cos(angle) * distance;
+    const py = Math.sin(angle) * distance;
+    const patchRadius = radius * (0.08 + seeded(index, seed + 6) * 0.24);
+    const shade = context.createRadialGradient(px, py, 0, px, py, patchRadius);
+    shade.addColorStop(0, "rgba(0,0,0,0.22)");
+    shade.addColorStop(0.72, "rgba(3,7,18,0.08)");
+    shade.addColorStop(1, "rgba(3,7,18,0)");
+    context.fillStyle = shade;
+    context.beginPath();
+    context.ellipse(
+      px,
+      py,
+      patchRadius * (1.4 + seeded(index, seed + 7) * 2.2),
+      patchRadius * (0.42 + seeded(index, seed + 8) * 0.76),
+      Math.sin(index * 1.13 + seed) * 0.75,
+      0,
+      Math.PI * 2
+    );
+    context.fill();
+  }
+
+  context.globalCompositeOperation = "screen";
+  context.globalAlpha = 0.13;
+  context.filter = "blur(6px)";
+  for (let index = 0; index < 48; index += 1) {
+    const angle = seeded(index, seed + 9) * Math.PI * 2;
+    const distance = Math.sqrt(seeded(index, seed + 10)) * radius * 0.78;
+    const px = Math.cos(angle) * distance - radius * 0.14;
+    const py = Math.sin(angle) * distance - radius * 0.08;
+    const patchRadius = radius * (0.05 + seeded(index, seed + 11) * 0.2);
+    const haze = context.createRadialGradient(px, py, 0, px, py, patchRadius);
+    haze.addColorStop(0, "rgba(248,250,252,0.16)");
+    haze.addColorStop(0.52, "rgba(103,232,249,0.08)");
+    haze.addColorStop(1, "rgba(3,7,18,0)");
+    context.fillStyle = haze;
+    context.beginPath();
+    context.ellipse(
+      px,
+      py,
+      patchRadius * (1.8 + seeded(index, seed + 12) * 2.6),
+      patchRadius * (0.32 + seeded(index, seed + 13) * 0.6),
+      Math.cos(index * 1.47 + time * 0.08) * 0.6,
+      0,
+      Math.PI * 2
+    );
+    context.fill();
+  }
+
+  context.globalAlpha = 0.08;
+  context.filter = "blur(3.2px)";
   context.lineCap = "round";
-  for (let index = 0; index < 54; index += 1) {
+  for (let index = 0; index < 34; index += 1) {
     const lane = (seeded(index, seed) - 0.5) * radius * 1.6;
     const wave = Math.sin(index * 1.91 + time * 0.18) * radius * 0.08;
     context.strokeStyle =
-      index % 3 === 0 ? "rgba(226,232,240,0.14)" : "rgba(15,23,42,0.16)";
-    context.lineWidth = radius * (0.003 + seeded(index, seed + 1) * 0.008);
+      index % 3 === 0 ? "rgba(226,232,240,0.12)" : "rgba(2,6,23,0.14)";
+    context.lineWidth = radius * (0.008 + seeded(index, seed + 1) * 0.014);
     context.beginPath();
     context.ellipse(
       wave,
@@ -923,9 +1101,9 @@ function drawPlanet(
     radius * 1.25
   );
   shadow.addColorStop(0, "rgba(3,7,18,0)");
-  shadow.addColorStop(0.48, "rgba(3,7,18,0.04)");
-  shadow.addColorStop(0.86, "rgba(0,0,0,0.22)");
-  shadow.addColorStop(1, "rgba(0,0,0,0.34)");
+  shadow.addColorStop(0.46, "rgba(3,7,18,0.06)");
+  shadow.addColorStop(0.82, "rgba(0,0,0,0.3)");
+  shadow.addColorStop(1, "rgba(0,0,0,0.48)");
   context.fillStyle = shadow;
   context.fillRect(-radius, -radius, radius * 2, radius * 2);
 
@@ -988,7 +1166,11 @@ function CinematicBitmapSpace() {
     let width = 0;
     let height = 0;
     let dpr = 1;
-    const stars = Array.from({ length: 1550 }, (_, index) => ({
+    let pointerX = 0;
+    let pointerY = 0;
+    let targetPointerX = 0;
+    let targetPointerY = 0;
+    const stars = Array.from({ length: 1850 }, (_, index) => ({
       x: seeded(index, 101),
       y: seeded(index, 102),
       z: seeded(index, 103),
@@ -1006,10 +1188,22 @@ function CinematicBitmapSpace() {
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
+    const handlePointerMove = (event: PointerEvent) => {
+      targetPointerX = (event.clientX / window.innerWidth - 0.5) * 2;
+      targetPointerY = (event.clientY / window.innerHeight - 0.5) * 2;
+    };
+
+    const resetPointer = () => {
+      targetPointerX = 0;
+      targetPointerY = 0;
+    };
+
     const render = (timeMs: number) => {
       const time = timeMs / 1000;
       const scrollable = document.documentElement.scrollHeight - window.innerHeight || 1;
       const scroll = window.scrollY / scrollable;
+      pointerX += (targetPointerX - pointerX) * 0.045;
+      pointerY += (targetPointerY - pointerY) * 0.045;
 
       context.clearRect(0, 0, width, height);
       const base = context.createLinearGradient(0, 0, width, height);
@@ -1021,8 +1215,8 @@ function CinematicBitmapSpace() {
 
       drawNebula(
         context,
-        width * 0.24 + scroll * 80,
-        height * 0.22 + Math.sin(time * 0.05) * 12,
+        width * 0.24 + scroll * 80 - pointerX * 14,
+        height * 0.22 + Math.sin(time * 0.05) * 12 - pointerY * 8,
         width * 0.48,
         height * 0.52,
         "rgba(124,58,237,0.34)",
@@ -1032,8 +1226,8 @@ function CinematicBitmapSpace() {
       );
       drawNebula(
         context,
-        width * 0.78 - scroll * 110,
-        height * 0.56,
+        width * 0.78 - scroll * 110 + pointerX * 18,
+        height * 0.56 + pointerY * 10,
         width * 0.56,
         height * 0.46,
         "rgba(37,99,235,0.24)",
@@ -1041,13 +1235,29 @@ function CinematicBitmapSpace() {
         0.62,
         0.24
       );
-      drawGalaxy(context, width * 0.58, height * 0.16 + scroll * 70, width * 0.2, -0.16, time);
+      drawGalaxy(
+        context,
+        width * 0.58 - pointerX * 22,
+        height * 0.16 + scroll * 70 - pointerY * 8,
+        width * 0.2,
+        -0.16,
+        time
+      );
 
       context.globalCompositeOperation = "screen";
       stars.forEach((star) => {
         const depth = 0.35 + star.z * 1.8;
-        const px = ((star.x * width + time * depth * 7 + scroll * depth * 210) % (width + 24)) - 12;
-        const py = ((star.y * height + scroll * depth * 90) % (height + 24)) - 12;
+        const px =
+          ((star.x * width +
+            time * depth * 7 +
+            scroll * depth * 210 +
+            pointerX * depth * 17) %
+            (width + 24)) -
+          12;
+        const py =
+          ((star.y * height + scroll * depth * 90 + pointerY * depth * 10) %
+            (height + 24)) -
+          12;
         context.globalAlpha = star.alpha * (0.38 + star.z * 0.62);
         context.fillStyle = star.z > 0.72 ? "#E0F2FE" : "#F8FAFC";
         context.beginPath();
@@ -1056,10 +1266,11 @@ function CinematicBitmapSpace() {
       });
 
       context.globalCompositeOperation = "source-over";
+      drawForegroundDust(context, width, height, scroll, time, pointerX, pointerY);
       drawPlanet(
         context,
-        width * 0.17 + scroll * 34,
-        height * 0.17 + Math.sin(time * 0.025) * 8,
+        width * 0.17 + scroll * 34 - pointerX * 26,
+        height * 0.17 + Math.sin(time * 0.025) * 8 - pointerY * 15,
         Math.min(width, height) * 0.25,
         violetPlanet,
         "rgba(167,139,250,0.8)",
@@ -1068,8 +1279,8 @@ function CinematicBitmapSpace() {
       );
       drawPlanet(
         context,
-        width * 0.96 - scroll * 42,
-        height * 0.24 + Math.cos(time * 0.024) * 9,
+        width * 0.96 - scroll * 42 + pointerX * 36,
+        height * 0.24 + Math.cos(time * 0.024) * 9 + pointerY * 20,
         Math.min(width, height) * 0.38,
         deepBluePlanet,
         "rgba(103,232,249,0.82)",
@@ -1078,8 +1289,8 @@ function CinematicBitmapSpace() {
       );
       drawBlackHole(
         context,
-        width * 0.48 + scroll * 36,
-        height * 0.29,
+        width * 0.48 + scroll * 36 - pointerX * 12,
+        height * 0.29 - pointerY * 7,
         Math.min(width, height) * 0.074,
         time * 0.08
       );
@@ -1091,10 +1302,14 @@ function CinematicBitmapSpace() {
 
     resize();
     window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerleave", resetPointer);
     frame = window.requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerleave", resetPointer);
       window.cancelAnimationFrame(frame);
     };
   }, []);
