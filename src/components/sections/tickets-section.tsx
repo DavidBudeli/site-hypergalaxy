@@ -10,7 +10,8 @@ export function TicketsSection({ dictionary }: TicketsSectionProps) {
   return (
     <section
       id="tickets"
-      className="section-shell border-y border-white/8 bg-slate-950/40"
+      className="section-shell border-y border-white/8 bg-slate-950/40 lg:min-h-screen"
+      data-pinned-cards-section
     >
       <div className="section-inner">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
@@ -29,6 +30,7 @@ export function TicketsSection({ dictionary }: TicketsSectionProps) {
                 return (
                   <div
                     key={item.title}
+                    data-pinned-card
                     className="relative rounded-lg border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl transition-colors duration-300 hover:border-cyan-200/24"
                   >
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start">

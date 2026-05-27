@@ -1,4 +1,10 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Activity,
   Bell,
@@ -23,8 +29,6 @@ import {
   activeProjects,
   activityFeed,
   aiAgents,
-  aiUsageByDay,
-  operationalMetrics,
   ticketQueue,
   workflowRuns,
   workspaceUsers
@@ -44,12 +48,119 @@ const navItems = [
   { label: "Settings", icon: Settings }
 ];
 
+const dashboardScenarios = [
+  {
+    id: "ops",
+    badge: "Production",
+    sync: "PostgreSQL synced 18s ago",
+    workspace: "Acme Global Workspace",
+    summary:
+      "42 users, 18 active projects, 127 AI agents and 284k workflow runs this month.",
+    metrics: [
+      { label: "ARR managed", value: "$14.8M", trend: "+12.4%" },
+      { label: "AI spend", value: "$8,421", trend: "-6.2%" },
+      { label: "Tickets SLA", value: "97.3%", trend: "+4.8%" },
+      { label: "Workflow runs", value: "284k", trend: "+31%" }
+    ],
+    invoice: "$18,420",
+    tokens: "5.52M",
+    agentBadge: "127 online",
+    ticketBadge: "P1 monitored",
+    usage: [46, 58, 54, 68, 64, 74, 71, 82, 66, 78, 80, 72]
+  },
+  {
+    id: "growth",
+    badge: "Scaling",
+    sync: "CRM, email and WhatsApp synced 6s ago",
+    workspace: "Nebula Commerce Cluster",
+    summary:
+      "68 users, 31 client workspaces, 214 AI agents and 512k automation events under control.",
+    metrics: [
+      { label: "ARR managed", value: "$22.4M", trend: "+18.9%" },
+      { label: "AI spend", value: "$12,076", trend: "-4.1%" },
+      { label: "Tickets SLA", value: "98.6%", trend: "+6.0%" },
+      { label: "Workflow runs", value: "512k", trend: "+42%" }
+    ],
+    invoice: "$24,980",
+    tokens: "8.14M",
+    agentBadge: "214 online",
+    ticketBadge: "Escalations routed",
+    usage: [52, 62, 70, 66, 78, 84, 72, 88, 91, 82, 86, 94]
+  },
+  {
+    id: "finance",
+    badge: "Cost control",
+    sync: "Billing ledger reconciled 2s ago",
+    workspace: "Atlas Finance Command",
+    summary:
+      "Usage, token budgets, subscriptions, invoices and AI routes optimized across enterprise accounts.",
+    metrics: [
+      { label: "ARR managed", value: "$31.2M", trend: "+24.7%" },
+      { label: "AI spend", value: "$9,308", trend: "-18.4%" },
+      { label: "Tickets SLA", value: "99.1%", trend: "+7.5%" },
+      { label: "Workflow runs", value: "731k", trend: "+58%" }
+    ],
+    invoice: "$31,760",
+    tokens: "10.9M",
+    agentBadge: "312 online",
+    ticketBadge: "Finance guardrails",
+    usage: [64, 60, 72, 78, 74, 82, 88, 84, 92, 87, 96, 90]
+  }
+] as const;
+
 export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [scenarioIndex, setScenarioIndex] = useState(0);
+  const scenario = useMemo(
+    () => dashboardScenarios[scenarioIndex],
+    [scenarioIndex]
+  );
+
+  useEffect(() => {
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(max-width: 1023px)").matches
+    ) {
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const trigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const next = Math.min(
+          dashboardScenarios.length - 1,
+          Math.floor(self.progress * dashboardScenarios.length)
+        );
+
+        setScenarioIndex((current) => (current === next ? current : next));
+      }
+    });
+
+    return () => trigger.kill();
+  }, []);
+
   return (
-    <section id="dashboard" className="section-shell">
-      <div className="absolute right-[6%] top-20 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
-      <div className="absolute left-[10%] bottom-24 h-72 w-72 rounded-full bg-cyan-300/8 blur-3xl" />
-      <div className="section-inner">
+    <section
+      id="dashboard"
+      ref={sectionRef}
+      className="section-shell lg:min-h-[315vh]"
+      data-dashboard-story
+    >
+      <div
+        className="absolute right-[6%] top-20 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"
+        data-parallax="-48"
+      />
+      <div
+        className="absolute left-[10%] bottom-24 h-72 w-72 rounded-full bg-cyan-300/8 blur-3xl"
+        data-parallax="46"
+      />
+      <div className="section-inner lg:sticky lg:top-20">
         <SectionHeading
           eyebrow={dictionary.dashboard.eyebrow}
           title={dictionary.dashboard.title}
@@ -126,21 +237,27 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
             <div className="min-w-0">
               <header className="rounded-lg border border-white/10 bg-slate-950/62 p-4">
                 <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Badge variant="success" className="gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
-                        Production
-                      </Badge>
-                      <Badge variant="muted">PostgreSQL synced 18s ago</Badge>
-                    </div>
-                    <h3 className="mt-3 text-2xl font-semibold text-white">
-                      Acme Global Workspace
-                    </h3>
-                    <p className="mt-1 text-sm text-slate-400">
-                      42 users, 18 active projects, 127 AI agents and 284k workflow runs this month.
-                    </p>
-                  </div>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={scenario.id}
+                      initial={{ opacity: 0, y: 14, filter: "blur(8px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -10, filter: "blur(8px)" }}
+                      transition={{ duration: 0.34, ease: "easeOut" }}
+                    >
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge variant="success" className="gap-2">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                          {scenario.badge}
+                        </Badge>
+                        <Badge variant="muted">{scenario.sync}</Badge>
+                      </div>
+                      <h3 className="mt-3 text-2xl font-semibold text-white">
+                        {scenario.workspace}
+                      </h3>
+                      <p className="mt-1 text-sm text-slate-400">{scenario.summary}</p>
+                    </motion.div>
+                  </AnimatePresence>
 
                   <div className="flex flex-wrap items-center gap-3">
                     <div className="hidden h-10 min-w-72 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 text-sm text-slate-500 md:flex">
@@ -170,9 +287,12 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
               </header>
 
               <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                {operationalMetrics.map((metric) => (
-                  <div
-                    key={metric.label}
+                {scenario.metrics.map((metric) => (
+                  <motion.div
+                    key={`${scenario.id}-${metric.label}`}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.38, ease: "easeOut" }}
                     className="rounded-lg border border-white/10 bg-slate-950/62 p-4"
                   >
                     <div className="flex items-center justify-between">
@@ -183,7 +303,7 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                       {metric.label}
                     </p>
                     <p className="mt-2 text-3xl font-semibold text-white">{metric.value}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -236,22 +356,28 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                     <CircleDollarSign className="h-5 w-5 text-amber-100" />
                   </div>
                   <div className="mt-5 flex h-40 items-end gap-2 rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                    {aiUsageByDay.map((value, index) => (
-                      <span
+                    {scenario.usage.map((value, index) => (
+                      <motion.span
                         key={`${value}-${index}`}
+                        initial={{ height: "24%" }}
+                        animate={{ height: `${value}%` }}
+                        transition={{ duration: 0.42, ease: "easeOut" }}
                         className="w-full rounded-t-sm bg-gradient-to-t from-cyan-300 to-violet-300"
-                        style={{ height: `${value}%` }}
                       />
                     ))}
                   </div>
                   <div className="mt-4 grid grid-cols-2 gap-3">
                     <div className="rounded-lg border border-white/10 bg-white/[0.035] p-3">
                       <p className="text-xs text-slate-500">Current invoice</p>
-                      <p className="mt-1 text-xl font-semibold text-white">$18,420</p>
+                      <p className="mt-1 text-xl font-semibold text-white">
+                        {scenario.invoice}
+                      </p>
                     </div>
                     <div className="rounded-lg border border-white/10 bg-white/[0.035] p-3">
                       <p className="text-xs text-slate-500">Token volume</p>
-                      <p className="mt-1 text-xl font-semibold text-white">5.52M</p>
+                      <p className="mt-1 text-xl font-semibold text-white">
+                        {scenario.tokens}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -261,7 +387,7 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                 <div className="rounded-lg border border-white/10 bg-slate-950/62 p-5">
                   <div className="mb-4 flex items-center justify-between">
                     <p className="text-sm font-semibold text-white">Ticket operations</p>
-                    <Badge variant="default">P1 monitored</Badge>
+                    <Badge variant="default">{scenario.ticketBadge}</Badge>
                   </div>
                   <div className="space-y-3">
                     {ticketQueue.map((ticket) => (
@@ -294,7 +420,7 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                 <div className="rounded-lg border border-white/10 bg-slate-950/62 p-5">
                   <div className="mb-4 flex items-center justify-between">
                     <p className="text-sm font-semibold text-white">Agents and workflows</p>
-                    <Badge variant="success">127 online</Badge>
+                    <Badge variant="success">{scenario.agentBadge}</Badge>
                   </div>
                   <div className="grid gap-3 md:grid-cols-2">
                     {aiAgents.slice(0, 4).map((agent, index) => (

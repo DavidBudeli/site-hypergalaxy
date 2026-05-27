@@ -88,13 +88,13 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
       />
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl min-w-0 items-center gap-10 lg:grid-cols-2">
-        <div className="min-w-0 max-w-3xl">
+        <div className="min-w-0 max-w-[22rem] sm:max-w-3xl">
           <Badge variant="default" className="mb-6 gap-2 px-3 py-1.5">
             <Sparkles className="h-3.5 w-3.5" />
             {dictionary.hero.eyebrow}
           </Badge>
 
-          <h1 className="max-w-full break-words text-balance text-[2.35rem] font-semibold leading-[1.08] tracking-normal text-white sm:text-6xl lg:text-7xl">
+          <h1 className="max-w-[22rem] break-words [text-wrap:wrap] text-[2.05rem] font-semibold leading-[1.1] tracking-normal text-white sm:max-w-full sm:text-balance sm:text-6xl lg:text-7xl">
             {dictionary.hero.title}
           </h1>
           <p className="mt-6 max-w-full break-words text-base leading-8 text-slate-300 sm:max-w-2xl sm:text-xl">

@@ -16,6 +16,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "latest",
     "gsap": "latest",
+    "lenis": "^1.3.23",
     "lucide-react": "latest",
     "next": "latest",
     "react": "latest",

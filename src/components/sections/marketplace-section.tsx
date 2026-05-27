@@ -23,10 +23,17 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
   return (
     <section
       id="agents"
-      className="section-shell border-y border-white/8 bg-[linear-gradient(180deg,rgba(8,17,32,0.72),rgba(3,7,18,0.94))]"
+      className="section-shell min-h-screen border-y border-white/8 bg-[linear-gradient(180deg,rgba(8,17,32,0.72),rgba(3,7,18,0.94))]"
+      data-horizontal-section
     >
-      <div className="absolute inset-0 bg-holo-grid bg-[size:72px_72px] opacity-[0.08]" />
-      <div className="absolute left-[12%] top-24 h-72 w-72 rounded-full bg-cyan-300/10 blur-3xl" />
+      <div
+        className="absolute inset-0 bg-holo-grid bg-[size:72px_72px] opacity-[0.08]"
+        data-parallax="-24"
+      />
+      <div
+        className="absolute left-[12%] top-24 h-72 w-72 rounded-full bg-cyan-300/10 blur-3xl"
+        data-parallax="58"
+      />
       <div className="section-inner">
         <SectionHeading
           eyebrow={dictionary.marketplace.eyebrow}
@@ -46,7 +53,14 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
           ))}
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div
+          className="mt-12 overflow-visible lg:overflow-hidden"
+          data-horizontal-viewport
+        >
+          <div
+            className="grid gap-4 md:grid-cols-2 lg:flex lg:w-max lg:gap-5 lg:pr-[24vw]"
+            data-horizontal-track
+          >
           {dictionary.marketplace.agents.map((agent, index) => {
             const visual = agentBrandVisuals[index % agentBrandVisuals.length];
 
@@ -54,11 +68,13 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
               <motion.div
                 key={agent.name}
                 data-reveal
+                data-horizontal-card
+                className="lg:w-[420px] lg:shrink-0"
                 initial={false}
                 whileHover={{ y: -8, rotateX: 1.5, rotateY: index % 2 ? -1 : 1 }}
                 transition={{ type: "spring", stiffness: 220, damping: 18 }}
               >
-                <Card className="group relative h-full overflow-hidden border-white/10 bg-slate-950/64">
+                <Card className="group relative h-full min-h-[430px] overflow-hidden border-white/10 bg-slate-950/64">
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent opacity-60" />
                   <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-cyan-300/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
                   <CardHeader className="relative">
@@ -130,6 +146,7 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
               </motion.div>
             );
           })}
+          </div>
         </div>
       </div>
     </section>
