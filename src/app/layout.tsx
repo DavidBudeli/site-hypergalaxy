@@ -42,6 +42,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Hyper Galaxy" }],
   creator: "Hyper Galaxy",
+  icons: {
+    icon: "/brand/hyper-galaxy-app-icon.png",
+    apple: "/brand/hyper-galaxy-app-icon.png"
+  },
   metadataBase: new URL("https://hypergalaxy.ai"),
   openGraph: {
     title: "Hyper Galaxy | AI Intelligence Infrastructure",

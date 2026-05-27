@@ -1,12 +1,14 @@
 "use client";
 
-import { Languages, LogIn, Rocket } from "lucide-react";
+import Image from "next/image";
+import { Languages, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   localeLabels,
   type Dictionary,
   type Locale
 } from "@/lib/i18n";
+import { brandAssets } from "@/lib/brand-assets";
 import { cn } from "@/lib/utils";
 
 type SiteHeaderProps = {
@@ -36,13 +38,22 @@ export function SiteHeader({
           className="group flex min-w-0 shrink-0 items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
           aria-label="Hyper Galaxy"
         >
-          <span className="relative grid h-10 w-10 place-items-center rounded-full border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">
-            <span className="absolute h-5 w-5 rounded-full border border-violet-300/50 animate-orbit" />
-            <Rocket className="h-4 w-4 text-cyan-100 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </span>
-          <span className="hidden text-sm font-bold tracking-normal text-white sm:block">
-            Hyper Galaxy
-          </span>
+          <Image
+            src={brandAssets.appIcon}
+            alt=""
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-full object-cover shadow-cyan-glow sm:hidden"
+            priority
+          />
+          <Image
+            src={brandAssets.logoCompact}
+            alt="Hyper Galaxy"
+            width={154}
+            height={49}
+            className="hidden h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02] sm:block"
+            priority
+          />
         </a>
 
         <nav

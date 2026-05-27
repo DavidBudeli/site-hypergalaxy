@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -22,6 +23,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { agentBrandVisuals, brandAssets } from "@/lib/brand-assets";
 import {
   clearSession,
   readSession,
@@ -87,9 +89,14 @@ export function DashboardApp() {
     return (
       <main className="grid min-h-screen place-items-center bg-[#030712] px-4">
         <div className="text-center">
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">
-            <Rocket className="h-6 w-6 animate-pulse text-cyan-100" />
-          </div>
+          <Image
+            src={brandAssets.appIcon}
+            alt=""
+            width={56}
+            height={56}
+            className="mx-auto h-14 w-14 animate-pulse rounded-2xl object-cover shadow-cyan-glow"
+            priority
+          />
           <p className="mt-5 text-sm font-semibold text-slate-300">
             Loading Hyper Galaxy OS
           </p>
@@ -106,10 +113,14 @@ export function DashboardApp() {
       <div className="relative z-10 grid min-h-screen lg:grid-cols-[260px_1fr]">
         <aside className="hidden border-r border-white/10 bg-slate-950/50 p-5 backdrop-blur-xl lg:block">
           <Link href="/" className="flex items-center gap-3">
-            <span className="grid h-11 w-11 place-items-center rounded-full border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">
-              <Rocket className="h-5 w-5 text-cyan-100" />
-            </span>
-            <span className="font-bold">Hyper Galaxy</span>
+            <Image
+              src={brandAssets.logoCompact}
+              alt="Hyper Galaxy"
+              width={154}
+              height={49}
+              className="h-11 w-auto object-contain"
+              priority
+            />
           </Link>
 
           <nav className="mt-9 space-y-2">
@@ -135,6 +146,22 @@ export function DashboardApp() {
             <p className="mt-1 text-xs leading-5 text-slate-400">
               Signed in as {session.user.role}
             </p>
+          </div>
+
+          <div className="mt-4 rounded-lg border border-violet-300/15 bg-violet-300/8 p-3">
+            <div className="flex items-center gap-3">
+              <Image
+                src={brandAssets.nova.avatar}
+                alt=""
+                width={50}
+                height={46}
+                className="h-12 w-12 rounded-full object-cover"
+              />
+              <div>
+                <p className="text-sm font-semibold text-white">Nova</p>
+                <p className="text-xs text-emerald-200">AI assistant online</p>
+              </div>
+            </div>
           </div>
         </aside>
 
@@ -198,17 +225,26 @@ export function DashboardApp() {
               </div>
 
               <div className="mt-6 space-y-3">
-                {agents.map((agent) => (
+                {agents.map((agent, index) => (
                   <div
                     key={agent.name}
                     className="rounded-lg border border-white/10 bg-white/[0.035] p-4"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <p className="font-semibold text-white">{agent.name}</p>
-                        <p className="mt-1 text-xs text-slate-500">
-                          {agent.channel} · {agent.status}
-                        </p>
+                      <div className="flex min-w-0 items-center gap-3">
+                        <Image
+                          src={agentBrandVisuals[index]}
+                          alt=""
+                          width={54}
+                          height={49}
+                          className="h-12 w-12 shrink-0 rounded-lg object-cover"
+                        />
+                        <div className="min-w-0">
+                          <p className="truncate font-semibold text-white">{agent.name}</p>
+                          <p className="mt-1 text-xs text-slate-500">
+                            {agent.channel} - {agent.status}
+                          </p>
+                        </div>
                       </div>
                       <span className="font-mono text-sm font-semibold text-cyan-100">
                         {agent.load}%

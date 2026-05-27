@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
@@ -10,7 +11,6 @@ import {
   ChartNoAxesCombined,
   CircleDollarSign,
   Cpu,
-  Database,
   Search,
   Sparkles,
   TicketCheck,
@@ -19,6 +19,7 @@ import {
 import { MagneticButton } from "@/components/site/magnetic-button";
 import { Badge } from "@/components/ui/badge";
 import { GalaxyScene } from "@/components/visuals/galaxy-scene";
+import { brandAssets } from "@/lib/brand-assets";
 import type { Dictionary } from "@/lib/i18n";
 import {
   activeProjects,
@@ -163,9 +164,13 @@ function HeroCommandDeck() {
           <div className="relative grid min-h-[640px] grid-cols-[140px_1fr] gap-4 min-[1400px]:grid-cols-[160px_1fr]">
             <aside className="rounded-lg border border-white/10 bg-slate-950/62 p-3 xl:p-4">
               <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg border border-cyan-200/20 bg-cyan-300/10">
-                  <Database className="h-5 w-5 text-cyan-100" />
-                </div>
+                <Image
+                  src={brandAssets.appIcon}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-lg object-cover shadow-cyan-glow"
+                />
                 <div>
                   <p className="text-sm font-semibold text-white">HG Cloud</p>
                   <p className="text-[0.68rem] text-slate-500">prod-us-east-1</p>
@@ -201,6 +206,22 @@ function HeroCommandDeck() {
                 </p>
                 <p className="mt-2 text-xl font-semibold text-white">128ms</p>
                 <p className="text-[0.68rem] text-slate-500">query p95</p>
+              </div>
+
+              <div className="mt-3 rounded-lg border border-violet-300/15 bg-violet-300/8 p-3">
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={brandAssets.nova.avatar}
+                    alt=""
+                    width={42}
+                    height={39}
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-semibold text-white">Nova</p>
+                    <p className="text-[0.68rem] text-emerald-200">Online</p>
+                  </div>
+                </div>
               </div>
             </aside>
 

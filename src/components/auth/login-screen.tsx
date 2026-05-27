@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -11,7 +12,6 @@ import {
   Languages,
   LockKeyhole,
   Mail,
-  Rocket,
   ShieldCheck,
   Sparkles
 } from "lucide-react";
@@ -24,6 +24,7 @@ import {
   readSession,
   saveSession
 } from "@/lib/auth";
+import { brandAssets } from "@/lib/brand-assets";
 import { dictionaries, localeLabels, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -147,12 +148,14 @@ export function LoginScreen() {
           className="flex items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
           aria-label="Hyper Galaxy"
         >
-          <span className="grid h-11 w-11 place-items-center rounded-full border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">
-            <Rocket className="h-5 w-5 text-cyan-100" />
-          </span>
-          <span className="hidden text-sm font-bold text-white sm:block">
-            Hyper Galaxy
-          </span>
+          <Image
+            src={brandAssets.logoCompact}
+            alt="Hyper Galaxy"
+            width={154}
+            height={49}
+            className="h-11 w-auto object-contain"
+            priority
+          />
         </Link>
 
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-xl">
@@ -178,6 +181,16 @@ export function LoginScreen() {
 
       <section className="relative z-10 mx-auto grid min-h-[calc(100vh-6rem)] w-full max-w-7xl items-center gap-10 py-12 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="max-w-2xl">
+          <div className="mb-7 hidden max-w-md rounded-2xl border border-white/10 bg-white/[0.035] p-3 shadow-glow backdrop-blur-xl sm:block">
+            <Image
+              src={brandAssets.nova.interfaceCard}
+              alt="Nova, assistente IA da Hyper Galaxy, online"
+              width={408}
+              height={119}
+              className="h-auto w-full rounded-xl object-contain"
+              priority
+            />
+          </div>
           <Badge className="gap-2">
             <Sparkles className="h-3.5 w-3.5" />
             {copy.eyebrow}
@@ -208,13 +221,22 @@ export function LoginScreen() {
             <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-300/10 blur-3xl" />
 
             <div className="relative flex items-start justify-between gap-4">
-              <div>
+              <div className="flex items-center gap-3">
+                <Image
+                  src={brandAssets.appIcon}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 rounded-xl object-cover shadow-cyan-glow"
+                />
+                <div>
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-100">
                   {dictionary.nav.login}
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold text-white">
                   Hyper Galaxy OS
                 </h2>
+                </div>
               </div>
               <Badge variant="success" className="gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />

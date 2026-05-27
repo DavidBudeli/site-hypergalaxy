@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Activity,
   Bell,
@@ -6,7 +7,6 @@ import {
   ChartNoAxesCombined,
   CircleDollarSign,
   Clock3,
-  Database,
   Search,
   ServerCog,
   Settings,
@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Badge } from "@/components/ui/badge";
+import { agentBrandVisuals, brandAssets } from "@/lib/brand-assets";
 import type { Dictionary } from "@/lib/i18n";
 import {
   activeProjects,
@@ -65,9 +66,13 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
           <div className="relative grid min-h-[820px] gap-4 lg:grid-cols-[238px_1fr]">
             <aside className="hidden rounded-lg border border-white/10 bg-slate-950/62 p-4 lg:block">
               <div className="mb-7 flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-lg border border-cyan-200/20 bg-cyan-300/10">
-                  <Database className="h-5 w-5 text-cyan-100" />
-                </div>
+                <Image
+                  src={brandAssets.appIcon}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-lg object-cover shadow-cyan-glow"
+                />
                 <div>
                   <p className="text-sm font-semibold text-white">HG Console</p>
                   <p className="text-xs text-slate-500">Enterprise workspace</p>
@@ -105,6 +110,16 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                 <p className="mt-2 text-xs leading-5 text-slate-500">
                   Audit logs, roles, billing controls and API keys organized by workspace.
                 </p>
+              </div>
+
+              <div className="mt-4 overflow-hidden rounded-lg border border-violet-300/15 bg-violet-300/8 p-2">
+                <Image
+                  src={brandAssets.nova.interfaceCard}
+                  alt="Nova assistant online"
+                  width={408}
+                  height={119}
+                  className="h-auto w-full rounded-md object-contain"
+                />
               </div>
             </aside>
 
@@ -258,7 +273,7 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                           <div>
                             <p className="text-sm font-semibold text-white">{ticket.title}</p>
                             <p className="mt-1 text-xs text-slate-500">
-                              {ticket.id} · {ticket.customer} · {ticket.assignee}
+                              {ticket.id} - {ticket.customer} - {ticket.assignee}
                             </p>
                           </div>
                           <div className="text-right">
@@ -282,19 +297,28 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                     <Badge variant="success">127 online</Badge>
                   </div>
                   <div className="grid gap-3 md:grid-cols-2">
-                    {aiAgents.slice(0, 4).map((agent) => (
+                    {aiAgents.slice(0, 4).map((agent, index) => (
                       <div
                         key={agent.name}
                         className="rounded-lg border border-white/10 bg-white/[0.035] p-3"
                       >
                         <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <p className="truncate text-sm font-semibold text-white">
-                              {agent.name}
-                            </p>
-                            <p className="mt-1 text-xs text-slate-500">
-                              {agent.channel} · {agent.tokens}
-                            </p>
+                          <div className="flex min-w-0 items-center gap-3">
+                            <Image
+                              src={agentBrandVisuals[index]}
+                              alt=""
+                              width={46}
+                              height={42}
+                              className="h-10 w-11 shrink-0 rounded-lg object-cover"
+                            />
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-semibold text-white">
+                                {agent.name}
+                              </p>
+                              <p className="mt-1 text-xs text-slate-500">
+                                {agent.channel} - {agent.tokens}
+                              </p>
+                            </div>
                           </div>
                           <span className="font-mono text-xs text-cyan-100">
                             {agent.accuracy}%
@@ -323,7 +347,7 @@ export function DashboardPreviewSection({ dictionary }: DashboardPreviewSectionP
                           </p>
                         </div>
                         <p className="mt-2 text-xs text-slate-500">
-                          {workflow.runs} runs · {workflow.success}% success
+                          {workflow.runs} runs - {workflow.success}% success
                         </p>
                       </div>
                     ))}

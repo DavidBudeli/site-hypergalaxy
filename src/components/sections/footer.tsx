@@ -1,6 +1,8 @@
-import { Code2, Globe2, Mail, Rocket, Send } from "lucide-react";
+import Image from "next/image";
+import { Code2, Globe2, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Dictionary } from "@/lib/i18n";
+import { brandAssets } from "@/lib/brand-assets";
 
 type FooterProps = {
   dictionary: Dictionary;
@@ -13,11 +15,14 @@ export function Footer({ dictionary }: FooterProps) {
     <footer className="border-t border-white/10 bg-[#030712] px-4 py-12 sm:px-6">
       <div className="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
-          <a href="#top" className="flex items-center gap-3">
-            <span className="grid h-11 w-11 place-items-center rounded-full border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">
-              <Rocket className="h-5 w-5 text-cyan-100" />
-            </span>
-            <span className="text-lg font-bold text-white">Hyper Galaxy</span>
+          <a href="#top" className="inline-flex items-center rounded-lg">
+            <Image
+              src={brandAssets.logoMain}
+              alt="Hyper Galaxy AI Operating System"
+              width={270}
+              height={51}
+              className="h-auto w-[270px] max-w-full object-contain"
+            />
           </a>
           <p className="mt-5 max-w-sm leading-7 text-slate-400">
             {dictionary.footer.description}
@@ -76,8 +81,8 @@ export function Footer({ dictionary }: FooterProps) {
         </div>
       </div>
       <div className="mx-auto mt-10 flex w-full max-w-7xl flex-col gap-3 border-t border-white/10 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-        <span>© {year} Hyper Galaxy. {dictionary.footer.rights}</span>
-        <span>AI Systems · Automation · SaaS Infrastructure</span>
+        <span>&copy; {year} Hyper Galaxy. {dictionary.footer.rights}</span>
+        <span>AI Systems - Automation - SaaS Infrastructure</span>
       </div>
     </footer>
   );

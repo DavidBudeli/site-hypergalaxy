@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Activity, PlugZap } from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
@@ -11,7 +12,8 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { iconMap, type Dictionary, type IconKey } from "@/lib/i18n";
+import { agentBrandVisuals } from "@/lib/brand-assets";
+import type { Dictionary } from "@/lib/i18n";
 
 type MarketplaceSectionProps = {
   dictionary: Dictionary;
@@ -46,7 +48,8 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
 
         <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {dictionary.marketplace.agents.map((agent, index) => {
-            const Icon = iconMap[agent.icon as IconKey];
+            const visual = agentBrandVisuals[index % agentBrandVisuals.length];
+
             return (
               <motion.div
                 key={agent.name}
@@ -60,8 +63,14 @@ export function MarketplaceSection({ dictionary }: MarketplaceSectionProps) {
                   <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-cyan-300/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
                   <CardHeader className="relative">
                     <div className="flex items-start justify-between gap-4">
-                      <div className="grid h-12 w-12 place-items-center rounded-lg border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">
-                        <Icon className="h-5 w-5 text-cyan-100" />
+                      <div className="grid h-14 w-14 place-items-center overflow-hidden rounded-lg border border-cyan-200/20 bg-cyan-300/10 shadow-cyan-glow">
+                        <Image
+                          src={visual}
+                          alt=""
+                          width={64}
+                          height={58}
+                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
                       </div>
                       <Badge variant="success" className="gap-2">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_14px_rgba(52,211,153,0.9)]" />
