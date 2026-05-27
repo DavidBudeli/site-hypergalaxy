@@ -182,108 +182,184 @@ body::after {
     will-change: transform, opacity;
   }
 
-  .cosmic-depth-layer {
+  .cosmic-cinematic-layer {
     inset: -5%;
-    opacity: 0.94;
-    animation: cosmic-depth-breathe 38s ease-in-out infinite;
+    opacity: 0.98;
+    animation: cosmic-camera-breathe 42s ease-in-out infinite;
   }
 
   .cosmic-stars-layer {
-    inset: -10%;
-    opacity: 0.36;
+    inset: -11%;
+    opacity: 0.2;
     mix-blend-mode: screen;
-    animation: cosmic-stars-drift 58s linear infinite;
+    animation: cosmic-stars-drift 68s linear infinite;
   }
 
-  .cosmic-planets-layer {
-    inset: -5%;
-    opacity: 0.82;
-    animation: cosmic-planets-drift 46s ease-in-out infinite;
-  }
-
-  .cosmic-dust-layer {
-    inset: -12%;
-    opacity: 0.13;
-    mix-blend-mode: screen;
-    animation: cosmic-dust-drift 72s linear infinite;
-  }
-
-  .cosmic-nebula-glow {
+  .cosmic-nebula-field {
     position: absolute;
-    inset: -8%;
+    inset: -9%;
     pointer-events: none;
     background:
-      radial-gradient(ellipse at 34% 28%, rgba(124, 58, 237, 0.2), transparent 42%),
-      radial-gradient(ellipse at 74% 42%, rgba(34, 211, 238, 0.13), transparent 44%),
-      radial-gradient(ellipse at 54% 72%, rgba(37, 99, 235, 0.12), transparent 42%);
+      radial-gradient(ellipse at 22% 32%, rgba(124, 58, 237, 0.13), transparent 38%),
+      radial-gradient(ellipse at 70% 38%, rgba(34, 211, 238, 0.075), transparent 42%),
+      radial-gradient(ellipse at 52% 76%, rgba(37, 99, 235, 0.08), transparent 44%);
     mix-blend-mode: screen;
-    opacity: 0.22;
-    transform: translate3d(var(--depth-x), var(--depth-y), 0) scale(1.02);
+    opacity: 0.17;
+    transform: translate3d(var(--space-nebula-x), var(--space-nebula-y), 0) scale(1.01);
     will-change: transform, opacity;
-    animation: cosmic-glow-pulse 24s ease-in-out infinite;
+    animation: cosmic-nebula-breathe 36s ease-in-out infinite;
+  }
+
+  .cosmic-foreground-dust {
+    position: absolute;
+    inset: -10%;
+    pointer-events: none;
+    background-image:
+      var(--noise),
+      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0.45px, transparent 0.95px),
+      radial-gradient(circle at 74% 58%, rgba(103, 232, 249, 0.18) 0.35px, transparent 0.9px);
+    background-size:
+      220px 220px,
+      132px 132px,
+      176px 176px;
+    mix-blend-mode: screen;
+    opacity: 0.055;
+    transform: translate3d(var(--space-dust-x), var(--space-dust-y), 0) scale(1.04);
+    will-change: transform, opacity;
+    animation: cosmic-dust-drift 88s linear infinite;
+  }
+
+  .cosmic-hud-depth {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(rgba(103, 232, 249, 0.014) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(103, 232, 249, 0.011) 1px, transparent 1px),
+      linear-gradient(120deg, transparent 0 48%, rgba(167, 139, 250, 0.06) 49%, transparent 50% 100%);
+    background-size:
+      148px 148px,
+      148px 148px,
+      780px 780px;
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 68%, transparent);
+    opacity: 0.22;
+  }
+
+  .boot-orbital-ring {
+    border: 1px solid rgba(103, 232, 249, 0.22);
+    box-shadow:
+      0 0 34px rgba(34, 211, 238, 0.12),
+      inset 0 0 24px rgba(124, 58, 237, 0.16);
+    transform: rotateX(68deg) rotateZ(0deg);
+    animation: boot-orbit 3.8s linear infinite;
+  }
+
+  .boot-orbital-ring::before {
+    position: absolute;
+    top: 50%;
+    right: -3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    content: "";
+    background: #67e8f9;
+    box-shadow: 0 0 18px rgba(103, 232, 249, 0.86);
+  }
+
+  .boot-orbital-ring-alt {
+    border-color: rgba(167, 139, 250, 0.24);
+    animation-duration: 5.4s;
+    animation-direction: reverse;
+  }
+
+  .boot-orbital-ring-alt::before {
+    background: #a78bfa;
+    box-shadow: 0 0 18px rgba(167, 139, 250, 0.76);
+  }
+
+  .boot-scanline {
+    background:
+      linear-gradient(rgba(103, 232, 249, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(103, 232, 249, 0.012) 1px, transparent 1px);
+    background-size: 110px 110px;
+    mask-image: radial-gradient(circle at center, black, transparent 72%);
   }
 }
 
-@keyframes cosmic-depth-breathe {
+@keyframes cosmic-camera-breathe {
   0%,
   100% {
-    opacity: 0.91;
-    transform: translate3d(var(--depth-x), var(--depth-y), 0) scale(var(--depth-scale));
+    opacity: 0.94;
+    transform: translate3d(var(--space-camera-x), var(--space-camera-y), 0)
+      scale(var(--space-camera-scale));
   }
 
   50% {
     opacity: 1;
-    transform: translate3d(calc(var(--depth-x) - 7px), calc(var(--depth-y) + 5px), 0)
-      scale(var(--depth-scale-breath));
+    transform: translate3d(
+        calc(var(--space-camera-x) - 4px),
+        calc(var(--space-camera-y) + 3px),
+        0
+      )
+      scale(var(--space-camera-breathe));
   }
 }
 
 @keyframes cosmic-stars-drift {
   0% {
-    transform: translate3d(var(--stars-x), var(--stars-y), 0) scale(1.06);
+    transform: translate3d(var(--space-stars-x), var(--space-stars-y), 0) scale(1.055);
   }
 
   100% {
-    transform: translate3d(calc(var(--stars-x) - 34px), calc(var(--stars-y) + 16px), 0)
-      scale(1.07);
+    transform: translate3d(
+        calc(var(--space-stars-x) - 28px),
+        calc(var(--space-stars-y) + 18px),
+        0
+      )
+      scale(1.065);
   }
 }
 
-@keyframes cosmic-planets-drift {
+@keyframes cosmic-nebula-breathe {
   0%,
   100% {
-    transform: translate3d(var(--planets-x), var(--planets-y), 0)
-      scale(var(--planet-scale)) rotate(-0.05deg);
+    opacity: 0.12;
+    transform: translate3d(var(--space-nebula-x), var(--space-nebula-y), 0) scale(1);
   }
 
   50% {
-    transform: translate3d(calc(var(--planets-x) + 5px), calc(var(--planets-y) - 4px), 0)
-      scale(var(--planet-scale-breath)) rotate(0.08deg);
+    opacity: 0.19;
+    transform: translate3d(
+        calc(var(--space-nebula-x) - 5px),
+        calc(var(--space-nebula-y) + 4px),
+        0
+      )
+      scale(1.03);
   }
 }
 
 @keyframes cosmic-dust-drift {
   0% {
-    transform: translate3d(var(--dust-x), var(--dust-y), 0) scale(1.05);
+    transform: translate3d(var(--space-dust-x), var(--space-dust-y), 0) scale(1.04);
   }
 
   100% {
-    transform: translate3d(calc(var(--dust-x) - 48px), calc(var(--dust-y) + 24px), 0)
-      scale(1.055);
+    transform: translate3d(
+        calc(var(--space-dust-x) - 30px),
+        calc(var(--space-dust-y) + 18px),
+        0
+      )
+      scale(1.045);
   }
 }
 
-@keyframes cosmic-glow-pulse {
-  0%,
-  100% {
-    opacity: 0.16;
-    transform: translate3d(var(--depth-x), var(--depth-y), 0) scale(1.01);
+@keyframes boot-orbit {
+  0% {
+    transform: rotateX(68deg) rotateZ(0deg);
   }
 
-  50% {
-    opacity: 0.28;
-    transform: translate3d(calc(var(--depth-x) + 6px), calc(var(--depth-y) - 4px), 0)
-      scale(1.04);
+  100% {
+    transform: rotateX(68deg) rotateZ(360deg);
   }
 }
 
@@ -308,7 +384,8 @@ body::after {
 
 @media (max-width: 1023px) {
   .cosmic-layer,
-  .cosmic-nebula-glow {
+  .cosmic-nebula-field,
+  .cosmic-foreground-dust {
     animation: none;
     transform: none;
   }

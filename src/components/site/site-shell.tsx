@@ -13,6 +13,7 @@ import { ImpactSection } from "@/components/sections/impact-section";
 import { LogoSliderSection } from "@/components/sections/logo-slider-section";
 import { MarketplaceSection } from "@/components/sections/marketplace-section";
 import { TicketsSection } from "@/components/sections/tickets-section";
+import { HyperGalaxyPreloader } from "@/components/site/hyper-galaxy-preloader";
 import { SiteHeader } from "@/components/site/site-header";
 import { CosmicBackground } from "@/components/visuals/cosmic-background";
 import { dictionaries, type Locale } from "@/lib/i18n";
@@ -204,6 +205,7 @@ export function SiteShell() {
 
   return (
     <>
+      <HyperGalaxyPreloader />
       <CosmicBackground />
       <SiteHeader
         dictionary={dictionary}

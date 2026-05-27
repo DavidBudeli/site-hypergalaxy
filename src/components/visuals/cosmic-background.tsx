@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CosmicCanvas } from "@/components/visuals/cosmic-canvas";
+import { CinematicSpaceScene } from "@/components/visuals/cinematic-space-scene";
 
 function StaticCosmicBackdrop() {
   return (
@@ -11,9 +11,12 @@ function StaticCosmicBackdrop() {
     >
       <div
         className="absolute inset-0 bg-cover bg-center opacity-90"
-        style={{ backgroundImage: "url('/cosmic/hyper-galaxy-space-mobile.jpg')" }}
+        style={{ backgroundImage: "url('/cosmic/hyper-galaxy-cinematic-space-mobile.jpg')" }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.44)_0.45px,transparent_1px)] bg-[length:64px_64px] opacity-25" />
+      <div
+        className="absolute inset-0 opacity-[0.045] mix-blend-screen"
+        style={{ backgroundImage: "var(--noise)" }}
+      />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,18,0.16),rgba(3,7,18,0.7)_100%)]" />
     </div>
   );
@@ -38,14 +41,14 @@ function CosmicHudOverlay() {
 }
 
 export function CosmicBackground() {
-  const [useCanvas, setUseCanvas] = useState(false);
+  const [useAnimatedBackdrop, setUseAnimatedBackdrop] = useState(false);
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1024px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const update = () => {
-      setUseCanvas(desktop.matches && !reduced.matches);
+      setUseAnimatedBackdrop(desktop.matches && !reduced.matches);
     };
 
     update();
@@ -60,7 +63,7 @@ export function CosmicBackground() {
 
   return (
     <>
-      {useCanvas ? <CosmicCanvas /> : <StaticCosmicBackdrop />}
+      {useAnimatedBackdrop ? <CinematicSpaceScene /> : <StaticCosmicBackdrop />}
       <CosmicHudOverlay />
     </>
   );
