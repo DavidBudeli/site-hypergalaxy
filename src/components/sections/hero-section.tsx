@@ -1,123 +1,63 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
-  Bot,
-  Boxes,
-  ChartNoAxesCombined,
-  CircleDollarSign,
-  Cpu,
-  Search,
-  Sparkles,
-  TicketCheck,
-  Workflow
+  Cloud,
+  Globe2,
+  LockKeyhole,
+  Network,
+  Sparkles
 } from "lucide-react";
 import { MagneticButton } from "@/components/site/magnetic-button";
 import { Badge } from "@/components/ui/badge";
 import { brandAssets } from "@/lib/brand-assets";
 import type { Dictionary } from "@/lib/i18n";
-import {
-  activeProjects,
-  aiAgents,
-  aiUsageByDay,
-  operationalMetrics,
-  ticketQueue,
-  workspaceUsers
-} from "@/lib/product-data";
 
 type HeroSectionProps = {
   dictionary: Dictionary;
 };
 
-function useTypingEffect(phrases: readonly string[]) {
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [characterIndex, setCharacterIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const phrase = phrases[phraseIndex] ?? "";
-    const atEnd = characterIndex === phrase.length;
-    const atStart = characterIndex === 0;
-
-    const timeout = window.setTimeout(
-      () => {
-        if (!deleting && atEnd) {
-          setDeleting(true);
-          return;
-        }
-
-        if (deleting && atStart) {
-          setDeleting(false);
-          setPhraseIndex((current) => (current + 1) % phrases.length);
-          return;
-        }
-
-        setCharacterIndex((current) => current + (deleting ? -1 : 1));
-      },
-      atEnd && !deleting ? 1100 : deleting ? 32 : 58
-    );
-
-    return () => window.clearTimeout(timeout);
-  }, [characterIndex, deleting, phraseIndex, phrases]);
-
-  return phrases[phraseIndex]?.slice(0, characterIndex) ?? "";
-}
+const throughputBars = [34, 46, 42, 58, 64, 72, 68, 82, 74, 88, 78, 70];
 
 export function HeroSection({ dictionary }: HeroSectionProps) {
-  const typed = useTypingEffect(dictionary.hero.typingPhrases);
-
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6 lg:px-8"
+      className="relative isolate flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_42%,rgba(34,211,238,0.02),transparent_28%),linear-gradient(180deg,rgba(3,7,18,0),rgba(3,7,18,0.06)_96%)]" />
-      <div
-        className="absolute left-[8%] top-28 hidden h-56 w-56 rounded-full bg-cyan-300/10 blur-lg lg:block"
-        data-parallax="64"
-      />
-      <div
-        className="absolute bottom-20 right-[10%] hidden h-72 w-72 rounded-full bg-violet-500/12 blur-lg lg:block"
-        data-parallax="-48"
-      />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_28%_36%,rgba(34,211,238,0.075),transparent_34rem),radial-gradient(ellipse_at_72%_26%,rgba(124,58,237,0.08),transparent_38rem),linear-gradient(180deg,rgba(3,7,18,0.05),rgba(3,7,18,0.4)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#030712] to-transparent" />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl min-w-0 items-center gap-10 lg:grid-cols-2">
-        <div className="min-w-0 max-w-[22rem] sm:max-w-3xl">
-          <Badge variant="default" className="mb-6 gap-2 px-3 py-1.5">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[0.88fr_1.12fr] xl:gap-20">
+        <motion.div
+          className="max-w-3xl"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Badge variant="default" className="mb-7 gap-2 px-3 py-1.5">
             <Sparkles className="h-3.5 w-3.5" />
             {dictionary.hero.eyebrow}
           </Badge>
 
-          <h1 className="max-w-[22rem] break-words [text-wrap:wrap] text-[2.05rem] font-semibold leading-[1.1] tracking-normal text-white sm:max-w-full sm:text-balance sm:text-6xl lg:text-7xl">
+          <h1 className="max-w-[12ch] text-balance text-[3.35rem] font-semibold leading-[0.95] tracking-normal text-white sm:text-7xl lg:text-[5.8rem] xl:text-[6.7rem]">
             {dictionary.hero.title}
           </h1>
-          <p className="mt-6 max-w-full break-words text-base leading-8 text-slate-300 sm:max-w-2xl sm:text-xl">
+
+          <p className="mt-7 max-w-xl text-base leading-8 text-slate-300 sm:text-xl">
             {dictionary.hero.subtitle}
           </p>
 
-          <div className="mt-7 flex min-h-12 w-full max-w-full min-w-0 flex-wrap items-center gap-3 overflow-hidden rounded-full border border-cyan-200/14 bg-slate-950/50 px-4 py-3 shadow-cyan-glow backdrop-blur-md sm:inline-flex sm:w-auto">
-            <span className="flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-cyan-100">
-              <Cpu className="h-4 w-4" />
-              {dictionary.hero.typingPrefix}
-            </span>
-            <span className="h-4 w-px bg-white/14" />
-            <span className="min-w-0 truncate font-mono text-sm text-white sm:text-base">
-              {typed}
-              <span className="ml-1 inline-block h-5 w-2 translate-y-1 bg-cyan-200 animate-pulse" />
-            </span>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <MagneticButton href="/login" className="group w-full sm:w-auto">
               {dictionary.hero.primary}
               <ArrowRight className="h-4 w-4" />
             </MagneticButton>
             <MagneticButton
-              href="#dashboard"
+              href="#marketplace"
               variant="galaxy"
               className="group w-full sm:w-auto"
             >
@@ -125,264 +65,150 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
               <ArrowDown className="h-4 w-4" />
             </MagneticButton>
           </div>
+        </motion.div>
 
-          <div className="mt-10 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
-            {dictionary.hero.stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-lg border border-white/10 bg-white/[0.035] p-4 backdrop-blur-md"
-              >
-                <div className="text-2xl font-semibold text-white">{stat.value}</div>
-                <div className="mt-1 text-xs font-medium text-slate-400">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <HeroCommandDeck />
+        <HeroCloudVisual dictionary={dictionary} />
       </div>
     </section>
   );
 }
 
-function HeroCommandDeck() {
+function HeroCloudVisual({ dictionary }: HeroSectionProps) {
+  const visual = dictionary.hero.visual;
+
   return (
     <motion.div
-      className="relative hidden min-h-[690px] min-[1180px]:block"
-      initial={false}
+      aria-hidden="true"
+      className="relative hidden min-h-[620px] lg:block"
+      initial={{ opacity: 0, x: 36, scale: 0.985 }}
       animate={{ opacity: 1, x: 0, scale: 1 }}
-      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="absolute inset-0 rounded-full bg-cyan-300/10 blur-lg" />
-      <div className="holo-border absolute right-0 top-4 w-[580px] rounded-lg min-[1400px]:w-[650px]">
-        <div className="glass-panel relative overflow-hidden rounded-lg p-4">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
-          <div className="absolute inset-0 bg-holo-grid bg-[size:34px_34px] opacity-[0.08]" />
+      <div className="absolute right-0 top-1/2 w-full max-w-[680px] -translate-y-1/2">
+        <div className="relative overflow-hidden rounded-lg border border-white/12 bg-[#050816]/58 p-5 shadow-[0_40px_120px_rgba(0,0,0,0.44),0_0_80px_rgba(34,211,238,0.08)] backdrop-blur-xl">
+          <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-100/60 to-transparent" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(103,232,249,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.03)_1px,transparent_1px)] bg-[size:56px_56px] opacity-30 [mask-image:radial-gradient(circle_at_58%_42%,black,transparent_72%)]" />
 
-          <div className="relative grid min-h-[640px] grid-cols-[140px_1fr] gap-4 min-[1400px]:grid-cols-[160px_1fr]">
-            <aside className="rounded-lg border border-white/10 bg-slate-950/62 p-3 xl:p-4">
+          <div className="relative">
+            <header className="flex items-center justify-between gap-5 border-b border-white/10 pb-5">
               <div className="flex items-center gap-3">
                 <Image
                   src={brandAssets.appIcon}
                   alt=""
-                  width={40}
-                  height={40}
-                  className="h-10 w-10 rounded-lg object-cover shadow-cyan-glow"
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 rounded-lg object-cover shadow-[0_0_28px_rgba(124,58,237,0.32)]"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-white">HG Cloud</p>
-                  <p className="text-[0.68rem] text-slate-500">prod-us-east-1</p>
+                  <p className="text-sm font-semibold text-white">Hyper Galaxy Cloud</p>
+                  <p className="mt-1 text-xs text-slate-400">{visual.fabric}</p>
                 </div>
               </div>
 
-              <nav className="mt-6 space-y-1.5">
-                {[
-                  { label: "Overview", icon: ChartNoAxesCombined },
-                  { label: "Projects", icon: Boxes },
-                  { label: "Agents", icon: Bot },
-                  { label: "Tickets", icon: TicketCheck },
-                  { label: "Billing", icon: CircleDollarSign },
-                  { label: "Workflows", icon: Workflow }
-                ].map((item, index) => (
-                  <div
-                    key={item.label}
-                    className={`flex items-center gap-2 rounded-md px-3 py-2 text-xs font-semibold ${
-                      index === 0
-                        ? "border border-cyan-200/20 bg-cyan-300/10 text-cyan-50"
-                        : "text-slate-500"
-                    }`}
-                  >
-                    <item.icon className="h-3.5 w-3.5" />
-                    {item.label}
-                  </div>
-                ))}
-              </nav>
-
-              <div className="mt-6 rounded-lg border border-emerald-300/15 bg-emerald-300/8 p-3">
-                <p className="text-[0.66rem] font-bold uppercase tracking-[0.14em] text-emerald-100">
-                  Database
-                </p>
-                <p className="mt-2 text-xl font-semibold text-white">128ms</p>
-                <p className="text-[0.68rem] text-slate-500">query p95</p>
+              <div className="flex items-center gap-2 rounded-full border border-emerald-300/16 bg-emerald-300/8 px-3 py-2 text-xs font-semibold text-emerald-100">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_14px_rgba(110,231,183,0.8)]" />
+                {visual.cloudStatus}
               </div>
+            </header>
 
-              <div className="mt-3 rounded-lg border border-violet-300/15 bg-violet-300/8 p-3">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={brandAssets.nova.avatar}
-                    alt=""
-                    width={42}
-                    height={39}
-                    className="h-10 w-10 rounded-full object-cover"
-                  />
-                  <div className="min-w-0">
-                    <p className="truncate text-xs font-semibold text-white">Nova</p>
-                    <p className="text-[0.68rem] text-emerald-200">Online</p>
-                  </div>
-                </div>
-              </div>
-            </aside>
-
-            <div className="min-w-0">
-              <header className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.035] px-4 py-3">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-100">
-                    Live Workspace
-                  </p>
-                  <h2 className="mt-1 text-xl font-semibold text-white">
-                    Hyper Galaxy OS
-                  </h2>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="hidden h-9 w-48 items-center gap-2 rounded-full border border-white/10 bg-slate-950/60 px-3 text-xs text-slate-500 min-[1400px]:flex">
-                    <Search className="h-3.5 w-3.5" />
-                    Search projects, tickets, agents
-                  </div>
-                  <div className="flex -space-x-2">
-                    {workspaceUsers.slice(0, 4).map((user) => (
-                      <div
-                        key={user.name}
-                        className="grid h-9 w-9 place-items-center rounded-full border border-slate-950 bg-gradient-to-br from-cyan-200/80 to-violet-300/80 text-[0.65rem] font-bold text-slate-950"
-                        title={`${user.name} - ${user.status}`}
-                      >
-                        {user.initials}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </header>
-
-              <div className="mt-4 grid grid-cols-2 gap-3 min-[1400px]:grid-cols-4">
-                {operationalMetrics.map((metric) => (
-                  <div
-                    key={metric.label}
-                    className="rounded-lg border border-white/10 bg-slate-950/58 p-3"
-                  >
-                    <p className="text-[0.64rem] font-bold uppercase tracking-[0.12em] text-slate-500">
-                      {metric.label}
+            <div className="grid gap-5 py-5 min-[1180px]:grid-cols-[1.05fr_0.95fr]">
+              <div className="rounded-lg border border-white/10 bg-white/[0.035] p-5">
+                <div className="mb-8 flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-100/80">
+                      {visual.coreLabel}
                     </p>
-                    <p className="mt-2 text-xl font-semibold text-white">{metric.value}</p>
-                    <p className="mt-1 text-[0.68rem] font-semibold text-emerald-200">
-                      {metric.trend}
-                    </p>
+                    <h2 className="mt-2 text-2xl font-semibold text-white">
+                      {visual.coreTitle}
+                    </h2>
                   </div>
-                ))}
+                  <Globe2 className="h-5 w-5 text-cyan-100/70" />
+                </div>
+
+                <div className="relative mx-auto grid aspect-square max-w-[270px] place-items-center">
+                  <div className="absolute inset-0 rounded-full border border-cyan-100/12" />
+                  <div className="absolute inset-8 rounded-full border border-violet-100/12" />
+                  <div className="absolute inset-16 rounded-full bg-cyan-200/6 blur-2xl" />
+                  <div className="absolute left-8 top-12 flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/72 px-3 py-1.5 text-[0.68rem] font-semibold text-slate-300">
+                    <Network className="h-3.5 w-3.5 text-cyan-100" />
+                    {visual.workflows}
+                  </div>
+                  <div className="absolute bottom-12 right-4 flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/72 px-3 py-1.5 text-[0.68rem] font-semibold text-slate-300">
+                    <LockKeyhole className="h-3.5 w-3.5 text-violet-100" />
+                    {visual.secureMesh}
+                  </div>
+                  <div className="relative grid h-28 w-28 place-items-center rounded-full border border-cyan-100/16 bg-[#081120]/82 shadow-[0_0_54px_rgba(34,211,238,0.12),inset_0_1px_0_rgba(255,255,255,0.12)]">
+                    <Image
+                      src={brandAssets.nova.avatar}
+                      alt=""
+                      width={88}
+                      height={88}
+                      className="h-20 w-20 rounded-full object-cover"
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-[1.12fr_0.88fr] gap-4">
-                <div className="rounded-lg border border-white/10 bg-slate-950/58 p-4">
-                  <div className="mb-4 flex items-center justify-between">
+              <div className="grid gap-5">
+                <div className="rounded-lg border border-white/10 bg-white/[0.035] p-5">
+                  <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-sm font-semibold text-white">Projects pipeline</p>
-                      <p className="text-[0.68rem] text-slate-500">3 active deployments</p>
+                      <p className="text-sm font-semibold text-white">{visual.throughput}</p>
+                      <p className="mt-1 text-xs text-slate-400">{visual.orchestration}</p>
                     </div>
-                    <Badge variant="success" className="gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
-                      Live
-                    </Badge>
+                    <Cloud className="h-5 w-5 text-cyan-100/70" />
                   </div>
-
-                  <div className="space-y-3">
-                    {activeProjects.map((project) => (
-                      <div
-                        key={project.name}
-                        className="rounded-md border border-white/8 bg-white/[0.035] p-3"
-                      >
-                        <div className="flex items-center justify-between gap-3">
-                          <div>
-                            <p className="text-sm font-semibold text-white">{project.name}</p>
-                            <p className="mt-1 text-[0.68rem] text-slate-500">
-                              {project.owner} - {project.status}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-sm font-semibold text-cyan-100">
-                              {project.budget}
-                            </p>
-                            <p className="text-[0.68rem] text-slate-500">
-                              {project.agents} agents
-                            </p>
-                          </div>
-                        </div>
-                        <div className="mt-3 h-1.5 rounded-full bg-white/8">
-                          <div
-                            className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-violet-400"
-                            style={{ width: `${project.progress}%` }}
-                          />
-                        </div>
-                      </div>
+                  <div className="mt-6 flex h-32 items-end gap-2">
+                    {throughputBars.map((value, index) => (
+                      <span
+                        key={`${value}-${index}`}
+                        className="w-full rounded-t-sm bg-gradient-to-t from-cyan-300/40 to-cyan-100/90 shadow-[0_0_16px_rgba(103,232,249,0.22)]"
+                        style={{ height: `${value}%` }}
+                      />
                     ))}
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-white/10 bg-slate-950/58 p-4">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-white">AI consumption</p>
-                      <span className="text-xs font-semibold text-cyan-100">$8.4k</span>
-                    </div>
-                    <div className="mt-4 flex h-28 items-end gap-1.5 rounded-md border border-white/8 bg-white/[0.025] p-3">
-                      {aiUsageByDay.map((value, index) => (
-                        <span
-                          key={`${value}-${index}`}
-                          className="w-full rounded-t-sm bg-cyan-200/70"
-                          style={{ height: `${value}%` }}
-                        />
-                      ))}
-                    </div>
+                <div className="rounded-lg border border-white/10 bg-white/[0.035] p-5">
+                  <div className="mb-5 flex items-center justify-between">
+                    <p className="text-sm font-semibold text-white">{visual.workflowTitle}</p>
+                    <span className="rounded-full border border-cyan-100/12 bg-cyan-100/8 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-cyan-100">
+                      {visual.live}
+                    </span>
                   </div>
-
-                  <div className="rounded-lg border border-white/10 bg-slate-950/58 p-4">
-                    <p className="text-sm font-semibold text-white">Agent health</p>
-                    <div className="mt-3 space-y-2">
-                      {aiAgents.slice(0, 3).map((agent) => (
-                        <div
-                          key={agent.name}
-                          className="flex items-center justify-between rounded-md border border-white/8 bg-white/[0.035] px-3 py-2"
-                        >
-                          <span className="truncate text-xs font-semibold text-slate-300">
-                            {agent.name}
-                          </span>
-                          <span className="font-mono text-xs text-cyan-100">
-                            {agent.accuracy}%
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 rounded-lg border border-white/10 bg-slate-950/58 p-4">
-                <div className="mb-3 flex items-center justify-between">
-                  <p className="text-sm font-semibold text-white">Tickets requiring action</p>
-                  <span className="text-xs font-semibold text-slate-500">SLA clock</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  {ticketQueue.map((ticket) => (
-                    <div
-                      key={ticket.id}
-                      className="rounded-md border border-white/8 bg-white/[0.035] p-3"
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-[0.66rem] text-cyan-100">
-                          {ticket.id}
-                        </span>
-                        <span className="rounded-full bg-red-400/10 px-2 py-0.5 text-[0.62rem] font-bold text-red-100">
-                          {ticket.priority}
-                        </span>
+                  <div className="relative grid grid-cols-4 gap-2">
+                    <div className="absolute left-[12%] right-[12%] top-4 h-px bg-gradient-to-r from-cyan-100/20 via-cyan-100/55 to-violet-100/25" />
+                    {visual.workflowNodes.map((node) => (
+                      <div key={node} className="relative text-center">
+                        <span className="mx-auto block h-8 w-8 rounded-full border border-cyan-100/18 bg-[#081120] shadow-[0_0_18px_rgba(34,211,238,0.1)]" />
+                        <p className="mt-3 text-[0.68rem] font-semibold text-slate-300">
+                          {node}
+                        </p>
                       </div>
-                      <p className="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-white">
-                        {ticket.title}
-                      </p>
-                      <p className="mt-2 text-[0.68rem] text-slate-500">
-                        {ticket.customer} - {ticket.sla}
-                      </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
+
+            <footer className="flex items-center justify-between gap-4 rounded-lg border border-violet-200/10 bg-violet-200/[0.045] px-4 py-3">
+              <div className="flex min-w-0 items-center gap-3">
+                <Image
+                  src={brandAssets.nova.success}
+                  alt=""
+                  width={44}
+                  height={44}
+                  className="h-11 w-11 shrink-0 rounded-full object-cover"
+                />
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold text-white">{visual.agent}</p>
+                  <p className="text-xs text-emerald-200">{visual.agentStatus}</p>
+                </div>
+              </div>
+              <div className="hidden rounded-full border border-white/10 bg-slate-950/60 px-3 py-1.5 text-xs font-semibold text-slate-300 min-[1180px]:block">
+                {visual.region}
+              </div>
+            </footer>
           </div>
         </div>
       </div>

@@ -68,12 +68,12 @@ export const dictionaries = {
       start: "Acessar Plataforma"
     },
     hero: {
-      eyebrow: "AI Intelligence Infrastructure",
-      title: "Hyper Galaxy OS para operar IA, tickets, projetos e billing em tempo real.",
+      eyebrow: "AI Infrastructure Platform",
+      title: "Hyper Galaxy Cloud",
       subtitle:
-        "Uma plataforma SaaS multiusuário para gerenciar agentes de IA, workflows, consumo, clientes e operações enterprise em um único sistema.",
+        "Uma plataforma cloud moderna para empresas que querem operar com inteligência, automação e escala.",
       primary: "Acessar Plataforma",
-      secondary: "Ver Produto",
+      secondary: "Explorar Ecossistema",
       typingPrefix: "Hyper Galaxy OS",
       typingPhrases: [
         "127 AI agents online",
@@ -86,7 +86,23 @@ export const dictionaries = {
         { label: "Agentes ativos", value: "127" },
         { label: "Execuções mensais", value: "284k" }
       ],
-      orbitLabels: ["Agents", "Billing", "Tickets", "Automations"]
+      orbitLabels: ["Agents", "Billing", "Tickets", "Automations"],
+      visual: {
+        fabric: "Malha global de IA",
+        cloudStatus: "Cloud online",
+        coreLabel: "Núcleo de inteligência",
+        coreTitle: "Órbita operacional",
+        workflows: "Fluxos",
+        secureMesh: "Malha segura",
+        throughput: "Capacidade IA",
+        orchestration: "Orquestração ao vivo",
+        workflowTitle: "Workflow autônomo",
+        live: "Ao vivo",
+        workflowNodes: ["Dados", "IA", "Fluxos", "Ops"],
+        agent: "Agente Nova",
+        agentStatus: "Online e orquestrando",
+        region: "Região enterprise: us-east-1"
+      }
     },
     logos: {
       eyebrow: "Stack operacional",
@@ -291,12 +307,12 @@ export const dictionaries = {
       start: "Open Platform"
     },
     hero: {
-      eyebrow: "AI Intelligence Infrastructure",
-      title: "Hyper Galaxy OS for operating AI, tickets, projects and billing in real time.",
+      eyebrow: "AI Infrastructure Platform",
+      title: "Hyper Galaxy Cloud",
       subtitle:
-        "A multi-user SaaS platform to manage AI agents, workflows, usage, customers and enterprise operations in one system.",
+        "A modern cloud platform for companies operating with intelligence, automation and scale.",
       primary: "Open Platform",
-      secondary: "View Product",
+      secondary: "Explore Ecosystem",
       typingPrefix: "Hyper Galaxy OS",
       typingPhrases: [
         "127 AI agents online",
@@ -309,7 +325,23 @@ export const dictionaries = {
         { label: "Active agents", value: "127" },
         { label: "Monthly executions", value: "284k" }
       ],
-      orbitLabels: ["Agents", "Billing", "Tickets", "Automations"]
+      orbitLabels: ["Agents", "Billing", "Tickets", "Automations"],
+      visual: {
+        fabric: "Global AI fabric",
+        cloudStatus: "Cloud online",
+        coreLabel: "Intelligence core",
+        coreTitle: "Operations orbit",
+        workflows: "Workflows",
+        secureMesh: "Secure mesh",
+        throughput: "AI throughput",
+        orchestration: "Live orchestration",
+        workflowTitle: "Autonomous workflow",
+        live: "Live",
+        workflowNodes: ["Data", "AI", "Flows", "Ops"],
+        agent: "Nova Agent",
+        agentStatus: "Online and orchestrating",
+        region: "Enterprise region: us-east-1"
+      }
     },
     logos: {
       eyebrow: "Operational stack",
