@@ -20,9 +20,9 @@ type SiteHeaderProps = {
 const navItems = [
   { key: "platform", href: "#platform" },
   { key: "agents", href: "#agents" },
-  { key: "dashboard", href: "#dashboard" },
-  { key: "tickets", href: "#tickets" },
-  { key: "impact", href: "#impact" }
+  { key: "dashboard", href: "#command" },
+  { key: "tickets", href: "#infrastructure" },
+  { key: "impact", href: "#ecosystem" }
 ] as const;
 
 export function SiteHeader({

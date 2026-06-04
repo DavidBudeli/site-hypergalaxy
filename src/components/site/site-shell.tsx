@@ -4,15 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { AboutSection } from "@/components/sections/about-section";
-import { DashboardPreviewSection } from "@/components/sections/dashboard-preview-section";
-import { FinalCtaSection } from "@/components/sections/final-cta-section";
+import { ExplorationJourney } from "@/components/sections/exploration-journey";
 import { Footer } from "@/components/sections/footer";
 import { HeroSection } from "@/components/sections/hero-section";
-import { ImpactSection } from "@/components/sections/impact-section";
-import { LogoSliderSection } from "@/components/sections/logo-slider-section";
-import { MarketplaceSection } from "@/components/sections/marketplace-section";
-import { TicketsSection } from "@/components/sections/tickets-section";
 import { HyperGalaxyPreloader } from "@/components/site/hyper-galaxy-preloader";
 import { SiteHeader } from "@/components/site/site-header";
 import { CosmicBackground } from "@/components/visuals/cosmic-background";
@@ -107,6 +101,24 @@ export function SiteShell() {
       });
 
       if (cinematicMotion.matches) {
+        gsap.utils.toArray<HTMLElement>("[data-journey-stage]").forEach((section) => {
+          gsap.fromTo(
+            section,
+            { autoAlpha: 0.72, y: 34 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: section,
+                scrub: 0.6,
+                start: "top 88%",
+                end: "top 34%"
+              }
+            }
+          );
+        });
+
         gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((element) => {
           const distance = Number(element.dataset.parallax || 30) * 0.42;
           gsap.to(element, {
@@ -214,13 +226,7 @@ export function SiteShell() {
       />
       <main className="relative z-10">
         <HeroSection dictionary={dictionary} />
-        <LogoSliderSection dictionary={dictionary} />
-        <AboutSection dictionary={dictionary} />
-        <MarketplaceSection dictionary={dictionary} />
-        <DashboardPreviewSection dictionary={dictionary} />
-        <TicketsSection dictionary={dictionary} />
-        <ImpactSection dictionary={dictionary} />
-        <FinalCtaSection dictionary={dictionary} />
+        <ExplorationJourney dictionary={dictionary} />
       </main>
       <Footer dictionary={dictionary} />
     </>
