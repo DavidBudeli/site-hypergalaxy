@@ -101,7 +101,7 @@ export function SiteShell() {
       });
 
       if (cinematicMotion.matches) {
-        gsap.utils.toArray<HTMLElement>("[data-journey-stage]").forEach((section) => {
+        gsap.utils.toArray<HTMLElement>("[data-location-stage]").forEach((section) => {
           gsap.fromTo(
             section,
             { autoAlpha: 0.72, y: 34 },

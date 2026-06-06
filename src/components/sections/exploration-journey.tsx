@@ -37,8 +37,8 @@ type ExplorationJourneyProps = {
   dictionary: Dictionary;
 };
 
-type ChapterIntroProps = {
-  chapter: string;
+type LocationIntroProps = {
+  location: string;
   eyebrow: string;
   title: string;
   subtitle: string;
@@ -58,23 +58,23 @@ const ecosystemIcons = [Bot, Cloud, PlugZap, Code2, Database, GitBranch];
 export function ExplorationJourney({ dictionary }: ExplorationJourneyProps) {
   return (
     <>
-      <FirstContactChapter dictionary={dictionary} />
-      <AgentMarketplaceChapter dictionary={dictionary} />
-      <CommandCenterChapter dictionary={dictionary} />
-      <CloudInfrastructureChapter dictionary={dictionary} />
-      <EcosystemChapter dictionary={dictionary} />
-      <FinalInvitationChapter dictionary={dictionary} />
+      <FirstContactLocation dictionary={dictionary} />
+      <AgentMarketplaceLocation dictionary={dictionary} />
+      <CommandNexusLocation dictionary={dictionary} />
+      <GalacticInfrastructureLocation dictionary={dictionary} />
+      <HyperCoreLocation dictionary={dictionary} />
+      <FinalPortalLocation dictionary={dictionary} />
     </>
   );
 }
 
-function ChapterIntro({
-  chapter,
+function LocationIntro({
+  location,
   eyebrow,
   title,
   subtitle,
   align = "left"
-}: ChapterIntroProps) {
+}: LocationIntroProps) {
   return (
     <div
       className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-2xl"}
@@ -86,7 +86,7 @@ function ChapterIntro({
         }`}
       >
         <span className="rounded-full border border-cyan-100/14 bg-cyan-100/7 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-cyan-100">
-          {chapter}
+          {location}
         </span>
         <span className="h-px w-16 bg-gradient-to-r from-cyan-100/45 to-transparent" />
       </div>
@@ -101,25 +101,25 @@ function ChapterIntro({
   );
 }
 
-function FirstContactChapter({ dictionary }: ExplorationJourneyProps) {
-  const chapter = dictionary.journey.firstContact;
+function FirstContactLocation({ dictionary }: ExplorationJourneyProps) {
+  const location = dictionary.journey.firstContact;
 
   return (
     <section
       id="platform"
       className="section-shell flex min-h-screen items-center border-t border-white/8"
-      data-journey-stage
+      data-location-stage
     >
       <div
         className="absolute right-[12%] top-20 hidden h-72 w-72 rounded-full bg-cyan-300/8 blur-3xl lg:block"
         data-parallax="-42"
       />
       <div className="section-inner grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-        <ChapterIntro
-          chapter={chapter.chapter}
-          eyebrow={chapter.eyebrow}
-          title={chapter.title}
-          subtitle={chapter.subtitle}
+        <LocationIntro
+          location={location.location}
+          eyebrow={location.eyebrow}
+          title={location.title}
+          subtitle={location.subtitle}
         />
 
         <div className="relative min-h-[520px]" data-reveal>
@@ -138,7 +138,7 @@ function FirstContactChapter({ dictionary }: ExplorationJourneyProps) {
                 height={160}
                 className="relative h-32 w-32 rounded-full object-contain drop-shadow-[0_0_34px_rgba(124,58,237,0.35)]"
               />
-              {chapter.signals.map((signal, index) => (
+              {location.signals.map((signal, index) => (
                 <div
                   key={signal}
                   className="absolute rounded-full border border-white/10 bg-slate-950/74 px-4 py-2 text-xs font-semibold text-slate-200 shadow-[0_0_28px_rgba(34,211,238,0.08)]"
@@ -158,27 +158,27 @@ function FirstContactChapter({ dictionary }: ExplorationJourneyProps) {
   );
 }
 
-function AgentMarketplaceChapter({ dictionary }: ExplorationJourneyProps) {
-  const chapter = dictionary.journey.marketplace;
+function AgentMarketplaceLocation({ dictionary }: ExplorationJourneyProps) {
+  const location = dictionary.journey.marketplace;
 
   return (
     <section
       id="agents"
       className="section-shell min-h-screen border-y border-white/8 bg-[linear-gradient(180deg,rgba(8,17,32,0.62),rgba(3,7,18,0.9))]"
       data-horizontal-section
-      data-journey-stage
+      data-location-stage
     >
       <div
         className="absolute inset-0 bg-[linear-gradient(rgba(103,232,249,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.022)_1px,transparent_1px)] bg-[size:96px_96px] opacity-35 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_75%,transparent)]"
         data-parallax="-24"
       />
       <div className="section-inner">
-        <ChapterIntro
+        <LocationIntro
           align="center"
-          chapter={chapter.chapter}
-          eyebrow={chapter.eyebrow}
-          title={chapter.title}
-          subtitle={chapter.subtitle}
+          location={location.location}
+          eyebrow={location.eyebrow}
+          title={location.title}
+          subtitle={location.subtitle}
         />
 
         <div className="mt-12 overflow-visible lg:overflow-hidden" data-horizontal-viewport>
@@ -192,13 +192,13 @@ function AgentMarketplaceChapter({ dictionary }: ExplorationJourneyProps) {
                 <div>
                   <Badge variant="default" className="gap-2">
                     <Radar className="h-3.5 w-3.5" />
-                    {chapter.station}
+                    {location.station}
                   </Badge>
                   <h3 className="mt-7 text-3xl font-semibold leading-tight text-white">
-                    {chapter.stationTitle}
+                    {location.stationTitle}
                   </h3>
                   <p className="mt-4 text-sm leading-7 text-slate-300">
-                    {chapter.stationText}
+                    {location.stationText}
                   </p>
                 </div>
                 <Image
@@ -279,14 +279,14 @@ function AgentMarketplaceChapter({ dictionary }: ExplorationJourneyProps) {
   );
 }
 
-function CommandCenterChapter({ dictionary }: ExplorationJourneyProps) {
-  const chapter = dictionary.journey.command;
+function CommandNexusLocation({ dictionary }: ExplorationJourneyProps) {
+  const location = dictionary.journey.command;
 
   return (
     <section
       id="command"
       className="section-shell min-h-screen"
-      data-journey-stage
+      data-location-stage
     >
       <span id="dashboard" className="absolute -top-24" />
       <div
@@ -294,12 +294,12 @@ function CommandCenterChapter({ dictionary }: ExplorationJourneyProps) {
         data-parallax="44"
       />
       <div className="section-inner">
-        <ChapterIntro
+        <LocationIntro
           align="center"
-          chapter={chapter.chapter}
-          eyebrow={chapter.eyebrow}
-          title={chapter.title}
-          subtitle={chapter.subtitle}
+          location={location.location}
+          eyebrow={location.eyebrow}
+          title={location.title}
+          subtitle={location.subtitle}
         />
 
         <div className="glass-panel holo-border relative mt-12 overflow-hidden rounded-lg p-3 sm:p-5" data-reveal>
@@ -348,12 +348,12 @@ function CommandCenterChapter({ dictionary }: ExplorationJourneyProps) {
                   <div>
                     <Badge variant="success" className="gap-2">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
-                      {chapter.live}
+                      {location.live}
                     </Badge>
                     <h3 className="mt-3 text-2xl font-semibold text-white">
-                      Hyper Galaxy Command Center
+                      Hyper Galaxy Command Nexus
                     </h3>
-                    <p className="mt-1 text-sm text-slate-400">{chapter.workspace}</p>
+                    <p className="mt-1 text-sm text-slate-400">{location.workspace}</p>
                   </div>
                   <div className="flex -space-x-2">
                     {workspaceUsers.map((user) => (
@@ -395,9 +395,9 @@ function CommandCenterChapter({ dictionary }: ExplorationJourneyProps) {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-sm font-semibold text-white">
-                        {chapter.projectsTitle}
+                        {location.projectsTitle}
                       </p>
-                      <p className="mt-1 text-sm text-slate-500">{chapter.projectsText}</p>
+                      <p className="mt-1 text-sm text-slate-500">{location.projectsText}</p>
                     </div>
                     <Boxes className="h-5 w-5 text-cyan-100" />
                   </div>
@@ -432,7 +432,7 @@ function CommandCenterChapter({ dictionary }: ExplorationJourneyProps) {
                 <div className="grid gap-4">
                   <div className="rounded-lg border border-white/10 bg-slate-950/62 p-5">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-white">{chapter.usageTitle}</p>
+                      <p className="text-sm font-semibold text-white">{location.usageTitle}</p>
                       <Zap className="h-5 w-5 text-violet-100" />
                     </div>
                     <div className="mt-5 flex h-40 items-end gap-2 rounded-lg border border-white/8 bg-white/[0.025] p-4">
@@ -447,7 +447,7 @@ function CommandCenterChapter({ dictionary }: ExplorationJourneyProps) {
                   </div>
 
                   <div className="rounded-lg border border-white/10 bg-slate-950/62 p-5">
-                    <p className="text-sm font-semibold text-white">{chapter.ticketTitle}</p>
+                    <p className="text-sm font-semibold text-white">{location.ticketTitle}</p>
                     <div className="mt-4 space-y-3">
                       {ticketQueue.slice(0, 2).map((ticket) => (
                         <div
@@ -479,29 +479,29 @@ function CommandCenterChapter({ dictionary }: ExplorationJourneyProps) {
   );
 }
 
-function CloudInfrastructureChapter({ dictionary }: ExplorationJourneyProps) {
-  const chapter = dictionary.journey.infrastructure;
+function GalacticInfrastructureLocation({ dictionary }: ExplorationJourneyProps) {
+  const location = dictionary.journey.infrastructure;
 
   return (
     <section
       id="infrastructure"
       className="section-shell border-y border-white/8 lg:min-h-[260vh]"
       data-pinned-cards-section
-      data-journey-stage
+      data-location-stage
     >
       <span id="tickets" className="absolute -top-24" />
       <div className="section-inner grid gap-10 lg:grid-cols-[0.76fr_1.24fr]">
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <ChapterIntro
-            chapter={chapter.chapter}
-            eyebrow={chapter.eyebrow}
-            title={chapter.title}
-            subtitle={chapter.subtitle}
+          <LocationIntro
+            location={location.location}
+            eyebrow={location.eyebrow}
+            title={location.title}
+            subtitle={location.subtitle}
           />
         </div>
 
         <div className="grid gap-4">
-          {chapter.systems.map((system, index) => {
+          {location.systems.map((system, index) => {
             const Icon = infrastructureIcons[index % infrastructureIcons.length];
 
             return (
@@ -525,7 +525,7 @@ function CloudInfrastructureChapter({ dictionary }: ExplorationJourneyProps) {
                   </div>
                   <div className="min-w-36 rounded-lg border border-white/10 bg-white/[0.035] px-4 py-3 text-right">
                     <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
-                      {chapter.statusLabel}
+                      {location.statusLabel}
                     </p>
                     <p className="mt-1 text-sm font-semibold text-emerald-200">
                       {system.status}
@@ -541,23 +541,23 @@ function CloudInfrastructureChapter({ dictionary }: ExplorationJourneyProps) {
   );
 }
 
-function EcosystemChapter({ dictionary }: ExplorationJourneyProps) {
-  const chapter = dictionary.journey.ecosystem;
+function HyperCoreLocation({ dictionary }: ExplorationJourneyProps) {
+  const location = dictionary.journey.ecosystem;
 
   return (
     <section
       id="ecosystem"
       className="section-shell min-h-screen"
-      data-journey-stage
+      data-location-stage
     >
       <span id="impact" className="absolute -top-24" />
       <div className="section-inner">
-        <ChapterIntro
+        <LocationIntro
           align="center"
-          chapter={chapter.chapter}
-          eyebrow={chapter.eyebrow}
-          title={chapter.title}
-          subtitle={chapter.subtitle}
+          location={location.location}
+          eyebrow={location.eyebrow}
+          title={location.title}
+          subtitle={location.subtitle}
         />
 
         <div className="relative mt-14 min-h-[620px]" data-reveal>
@@ -578,9 +578,9 @@ function EcosystemChapter({ dictionary }: ExplorationJourneyProps) {
                 />
               </div>
 
-              {chapter.nodes.map((node, index) => {
+              {location.nodes.map((node, index) => {
                 const Icon = ecosystemIcons[index % ecosystemIcons.length];
-                const angle = (index / chapter.nodes.length) * Math.PI * 2 - Math.PI / 2;
+                const angle = (index / location.nodes.length) * Math.PI * 2 - Math.PI / 2;
                 const radius = 214;
 
                 return (
@@ -617,27 +617,34 @@ function EcosystemChapter({ dictionary }: ExplorationJourneyProps) {
   );
 }
 
-function FinalInvitationChapter({ dictionary }: ExplorationJourneyProps) {
-  const chapter = dictionary.journey.invite;
+function FinalPortalLocation({ dictionary }: ExplorationJourneyProps) {
+  const location = dictionary.journey.invite;
 
   return (
     <section
       id="join"
       className="section-shell flex min-h-screen items-center border-t border-white/8"
-      data-journey-stage
+      data-location-stage
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(124,58,237,0.16),transparent_32rem),radial-gradient(circle_at_58%_62%,rgba(34,211,238,0.09),transparent_30rem)]" />
       <div className="section-inner text-center">
         <div className="mx-auto max-w-4xl" data-reveal>
+          <div className="mb-5 flex items-center justify-center gap-3">
+            <span className="h-px w-14 bg-gradient-to-l from-cyan-100/45 to-transparent" />
+            <span className="rounded-full border border-cyan-100/14 bg-cyan-100/7 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-cyan-100">
+              {location.location}
+            </span>
+            <span className="h-px w-14 bg-gradient-to-r from-cyan-100/45 to-transparent" />
+          </div>
           <Badge variant="default" className="mb-7 gap-2 px-3 py-1.5">
             <Sparkles className="h-3.5 w-3.5" />
-            {chapter.eyebrow}
+            {location.eyebrow}
           </Badge>
           <h2 className="text-balance text-5xl font-semibold leading-tight text-white sm:text-7xl">
-            {chapter.title}
+            {location.title}
           </h2>
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-300">
-            {chapter.subtitle}
+            {location.subtitle}
           </p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <MagneticButton href="/login" className="group w-full sm:w-auto">

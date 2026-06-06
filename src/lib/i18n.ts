@@ -59,19 +59,19 @@ export const iconMap = {
 export const dictionaries = {
   pt: {
     nav: {
-      platform: "Contato",
-      agents: "Agentes IA",
-      dashboard: "Command Center",
+      platform: "Nebulosa",
+      agents: "Estação Orbital",
+      dashboard: "Command Nexus",
       tickets: "Infraestrutura",
-      impact: "Ecossistema",
+      impact: "Hyper Core",
       login: "Entrar",
       start: "Acessar Plataforma"
     },
     hero: {
-      eyebrow: "Entrada na galáxia",
-      title: "Infraestrutura galáctica de IA.",
+      eyebrow: "Local 01 · Portal Hyper Galaxy",
+      title: "Entre em um universo vivo de inteligência artificial.",
       subtitle:
-        "Uma experiência cloud para operar agentes, automações e inteligência em escala enterprise.",
+        "Uma infraestrutura galáctica para descobrir, conectar e operar IA, automações e cloud em escala enterprise.",
       primary: "Acessar Plataforma",
       secondary: "Explorar Ecossistema",
       typingPrefix: "Hyper Galaxy OS",
@@ -106,33 +106,33 @@ export const dictionaries = {
     },
     journey: {
       entry: {
-        scroll: "Iniciar exploração"
+        scroll: "Atravessar o portal"
       },
       firstContact: {
-        chapter: "Capítulo 02",
-        eyebrow: "Primeiro contato",
-        title: "Uma plataforma de IA, automação e cloud operando como um só organismo.",
+        location: "Local 02",
+        eyebrow: "Nebulosa da Inteligência",
+        title: "A primeira região revela o propósito do ecossistema.",
         subtitle:
-          "A Hyper Galaxy conecta agentes inteligentes, workflows, dados e infraestrutura para transformar operações digitais em um ecossistema vivo.",
+          "IA, automação, cloud e dados aparecem como uma malha viva, não como uma lista de recursos. A Hyper Galaxy começa a se revelar como infraestrutura operacional.",
         signals: ["IA aplicada", "Automação operacional", "Cloud infrastructure"]
       },
       marketplace: {
-        chapter: "Capítulo 03",
-        eyebrow: "AI Marketplace",
-        title: "Uma estação de agentes pronta para ser explorada.",
+        location: "Local 03",
+        eyebrow: "Estação Orbital de Agentes",
+        title: "Uma estação surge no caminho, cheia de módulos inteligentes.",
         subtitle:
-          "Os agentes não aparecem como cards soltos. Eles surgem como módulos de uma infraestrutura maior, cada um pronto para assumir uma parte da operação.",
-        station: "Estação de agentes",
-        stationTitle: "Descubra módulos inteligentes em órbita operacional.",
+          "Os agentes aparecem gradualmente, como unidades operacionais descobertas dentro de uma estação espacial de IA.",
+        station: "Estação orbital",
+        stationTitle: "Módulos inteligentes entram em órbita conforme a exploração avança.",
         stationText:
-          "Cada agente conecta canais, dados e decisões. A experiência revela o marketplace como uma nova região da Hyper Galaxy."
+          "Cada agente conecta canais, dados e decisões. O marketplace deixa de ser vitrine e passa a ser um local dentro do universo Hyper Galaxy."
       },
       command: {
-        chapter: "Capítulo 04",
-        eyebrow: "Command Center",
-        title: "Só agora o produto se revela como central operacional.",
+        location: "Local 04",
+        eyebrow: "Command Nexus",
+        title: "Só aqui a plataforma se revela como centro operacional.",
         subtitle:
-          "Depois da descoberta, o dashboard aparece como uma plataforma real para equipes, clientes, agentes, tickets, projetos e billing.",
+          "Depois da descoberta, o dashboard aparece como um núcleo real para equipes, clientes, agentes, tickets, projetos e billing.",
         live: "Operação ao vivo",
         workspace: "Clientes, agentes, custos e entregas sincronizados em tempo real.",
         projectsTitle: "Projetos em execução",
@@ -141,11 +141,11 @@ export const dictionaries = {
         ticketTitle: "Tickets em rota"
       },
       infrastructure: {
-        chapter: "Capítulo 05",
-        eyebrow: "Cloud Infrastructure",
-        title: "A camada invisível que sustenta tickets, billing, projetos e automações.",
+        location: "Local 05",
+        eyebrow: "Infraestrutura Galáctica",
+        title: "A região onde tickets, billing, projetos e APIs viram uma malha operacional.",
         subtitle:
-          "Em vez de explicar com textão, a infraestrutura aparece como sistemas conectados que entram em cena conforme a jornada avança.",
+          "A infraestrutura não aparece como lista de features. Ela entra como sistemas conectados que sustentam a operação por trás do universo.",
         statusLabel: "Estado",
         systems: [
           {
@@ -181,19 +181,19 @@ export const dictionaries = {
         ]
       },
       ecosystem: {
-        chapter: "Capítulo 06",
-        eyebrow: "Ecossistema",
-        title: "Tudo parece separado até você perceber que tudo está conectado.",
+        location: "Local 06",
+        eyebrow: "Hyper Core",
+        title: "Tudo parece separado até o núcleo revelar que tudo está conectado.",
         subtitle:
-          "Marketplace, cloud, agentes, automações, APIs e integrações formam a malha operacional da Hyper Galaxy.",
+          "Marketplace, cloud, agentes, automações, APIs, dados e integrações funcionam como um único organismo tecnológico.",
         nodes: ["Marketplace", "Cloud", "Agentes", "APIs", "Dados", "Integrações"]
       },
       invite: {
-        chapter: "Capítulo 07",
-        eyebrow: "Convite final",
-        title: "Entre no universo operacional da Hyper Galaxy.",
+        location: "Local 07",
+        eyebrow: "Portal de Entrada",
+        title: "Acesse o universo operacional da Hyper Galaxy.",
         subtitle:
-          "A próxima etapa não é ler mais uma landing page. É acessar uma infraestrutura inteligente criada para operar o futuro."
+          "A próxima etapa é entrar na plataforma e fazer parte de uma infraestrutura inteligente criada para operar o futuro."
       }
     },
     logos: {
@@ -390,19 +390,19 @@ export const dictionaries = {
   },
   en: {
     nav: {
-      platform: "Contact",
-      agents: "AI Agents",
-      dashboard: "Command Center",
+      platform: "Nebula",
+      agents: "Orbital Station",
+      dashboard: "Command Nexus",
       tickets: "Infrastructure",
-      impact: "Ecosystem",
+      impact: "Hyper Core",
       login: "Sign in",
       start: "Open Platform"
     },
     hero: {
-      eyebrow: "Galaxy entry",
-      title: "Galactic AI infrastructure.",
+      eyebrow: "Location 01 · Hyper Galaxy Portal",
+      title: "Enter a living universe of artificial intelligence.",
       subtitle:
-        "A cloud experience for operating agents, automations and intelligence at enterprise scale.",
+        "A galactic infrastructure for discovering, connecting and operating AI, automations and cloud at enterprise scale.",
       primary: "Open Platform",
       secondary: "Explore Ecosystem",
       typingPrefix: "Hyper Galaxy OS",
@@ -437,33 +437,33 @@ export const dictionaries = {
     },
     journey: {
       entry: {
-        scroll: "Begin exploration"
+        scroll: "Cross the portal"
       },
       firstContact: {
-        chapter: "Chapter 02",
-        eyebrow: "First contact",
-        title: "An AI, automation and cloud platform operating as one organism.",
+        location: "Location 02",
+        eyebrow: "Intelligence Nebula",
+        title: "The first region reveals the purpose of the ecosystem.",
         subtitle:
-          "Hyper Galaxy connects intelligent agents, workflows, data and infrastructure to turn digital operations into a living ecosystem.",
+          "AI, automation, cloud and data appear as a living mesh, not a feature list. Hyper Galaxy starts revealing itself as operational infrastructure.",
         signals: ["Applied AI", "Operational automation", "Cloud infrastructure"]
       },
       marketplace: {
-        chapter: "Chapter 03",
-        eyebrow: "AI Marketplace",
-        title: "An agent station waiting to be explored.",
+        location: "Location 03",
+        eyebrow: "Orbital Agent Station",
+        title: "A station appears on the route, filled with intelligent modules.",
         subtitle:
-          "Agents are not revealed as loose cards. They emerge as modules of a larger infrastructure, each ready to operate part of the business.",
-        station: "Agent station",
-        stationTitle: "Discover intelligent modules in operational orbit.",
+          "Agents appear gradually, as operational units discovered inside an AI space station.",
+        station: "Orbital station",
+        stationTitle: "Intelligent modules enter orbit as the exploration advances.",
         stationText:
-          "Each agent connects channels, data and decisions. The experience reveals the marketplace as a new Hyper Galaxy region."
+          "Each agent connects channels, data and decisions. The marketplace stops feeling like a showcase and becomes a place inside the Hyper Galaxy universe."
       },
       command: {
-        chapter: "Chapter 04",
-        eyebrow: "Command Center",
-        title: "Only now does the product reveal itself as an operational center.",
+        location: "Location 04",
+        eyebrow: "Command Nexus",
+        title: "Only here does the platform reveal itself as an operational center.",
         subtitle:
-          "After discovery, the dashboard appears as a real platform for teams, clients, agents, tickets, projects and billing.",
+          "After discovery, the dashboard appears as a real nucleus for teams, clients, agents, tickets, projects and billing.",
         live: "Live operation",
         workspace: "Customers, agents, costs and delivery synchronized in real time.",
         projectsTitle: "Projects in motion",
@@ -472,11 +472,11 @@ export const dictionaries = {
         ticketTitle: "Tickets in route"
       },
       infrastructure: {
-        chapter: "Chapter 05",
-        eyebrow: "Cloud Infrastructure",
-        title: "The invisible layer behind tickets, billing, projects and automations.",
+        location: "Location 05",
+        eyebrow: "Galactic Infrastructure",
+        title: "The region where tickets, billing, projects and APIs become an operational mesh.",
         subtitle:
-          "Instead of heavy explanation, infrastructure appears as connected systems entering the journey as it advances.",
+          "Infrastructure does not appear as a list of features. It enters as connected systems sustaining the operation behind the universe.",
         statusLabel: "State",
         systems: [
           {
@@ -512,19 +512,19 @@ export const dictionaries = {
         ]
       },
       ecosystem: {
-        chapter: "Chapter 06",
-        eyebrow: "Ecosystem",
-        title: "Everything seems separate until you realize everything is connected.",
+        location: "Location 06",
+        eyebrow: "Hyper Core",
+        title: "Everything seems separate until the core reveals everything is connected.",
         subtitle:
-          "Marketplace, cloud, agents, automations, APIs and integrations form the Hyper Galaxy operational mesh.",
+          "Marketplace, cloud, agents, automations, APIs, data and integrations operate as one technological organism.",
         nodes: ["Marketplace", "Cloud", "Agents", "APIs", "Data", "Integrations"]
       },
       invite: {
-        chapter: "Chapter 07",
-        eyebrow: "Final invitation",
-        title: "Enter the operational universe of Hyper Galaxy.",
+        location: "Location 07",
+        eyebrow: "Entry Portal",
+        title: "Access the operational universe of Hyper Galaxy.",
         subtitle:
-          "The next step is not reading another landing page. It is entering intelligent infrastructure built to operate the future."
+          "The next step is entering the platform and becoming part of intelligent infrastructure built to operate the future."
       }
     },
     logos: {

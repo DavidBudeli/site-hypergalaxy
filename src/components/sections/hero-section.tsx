@@ -17,7 +17,7 @@ export function HeroSection({ dictionary }: HeroSectionProps) {
     <section
       id="top"
       className="relative isolate flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8"
-      data-journey-stage
+      data-location-stage
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_34%,rgba(124,58,237,0.12),transparent_36rem),radial-gradient(ellipse_at_42%_72%,rgba(34,211,238,0.075),transparent_34rem),linear-gradient(180deg,rgba(3,7,18,0.02),rgba(3,7,18,0.52)_100%)]" />
       <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#030712] to-transparent" />
