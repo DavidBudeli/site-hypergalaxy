@@ -82,6 +82,84 @@ export function SiteShell() {
     document.addEventListener("click", handleAnchorClick);
 
     const context = gsap.context(() => {
+      const root = document.documentElement;
+      const currentLocationLabel = document.querySelector<HTMLElement>(
+        "[data-current-location]"
+      );
+      const currentLocationNumber = document.querySelector<HTMLElement>(
+        "[data-current-location-number]"
+      );
+      const locationStages = gsap.utils.toArray<HTMLElement>("[data-location-stage]");
+      const normalizeLabel = (label: string) =>
+        label.replace(/^(Local|Location)\s+\d+\s*·\s*/i, "");
+      const setActiveLocation = (section: HTMLElement, index: number) => {
+        const code = section.dataset.locationCode || `Local ${index + 1}`;
+        const label = normalizeLabel(section.dataset.locationLabel || code);
+        const number =
+          code.match(/\d+/)?.[0]?.padStart(2, "0") ||
+          String(index + 1).padStart(2, "0");
+
+        if (currentLocationLabel) currentLocationLabel.textContent = label;
+        if (currentLocationNumber) currentLocationNumber.textContent = number;
+        document.body.dataset.activeLocation = number;
+      };
+      const syncActiveLocation = () => {
+        if (locationStages.length === 0) return;
+
+        const viewportCenter = window.innerHeight * 0.5;
+        let activeIndex = 0;
+        let activeSection = locationStages[0];
+        let closestDistance = Number.POSITIVE_INFINITY;
+
+        locationStages.forEach((section, index) => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+            activeIndex = index;
+            activeSection = section;
+            closestDistance = 0;
+            return;
+          }
+
+          const distance = Math.abs(rect.top + rect.height * 0.5 - viewportCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            activeIndex = index;
+            activeSection = section;
+          }
+        });
+
+        setActiveLocation(activeSection, activeIndex);
+      };
+
+      ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onUpdate: (self) => {
+          const progress = self.progress;
+          root.style.setProperty("--journey-progress", progress.toFixed(4));
+          root.style.setProperty("--journey-depth", (progress * 100).toFixed(2));
+          root.style.setProperty(
+            "--journey-overlay-opacity",
+            (0.16 + progress * 0.16).toFixed(4)
+          );
+          root.style.setProperty(
+            "--journey-overlay-scale",
+            (1 + progress * 0.2).toFixed(4)
+          );
+          root.style.setProperty("--journey-overlay-y", `${progress * -24}px`);
+          root.style.setProperty(
+            "--journey-reticle-opacity",
+            (0.06 + progress * 0.08).toFixed(4)
+          );
+          root.style.setProperty(
+            "--journey-reticle-scale",
+            (0.92 + progress * 0.42).toFixed(4)
+          );
+          syncActiveLocation();
+        }
+      });
+      syncActiveLocation();
+
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
         gsap.fromTo(
           element,
@@ -101,19 +179,92 @@ export function SiteShell() {
       });
 
       if (cinematicMotion.matches) {
-        gsap.utils.toArray<HTMLElement>("[data-location-stage]").forEach((section) => {
+        locationStages.forEach((section) => {
+          const content =
+            section.querySelector<HTMLElement>(".section-inner") ||
+            section.querySelector<HTMLElement>("[data-location-content]") ||
+            section;
+          const emergentItems = gsap.utils.toArray<HTMLElement>(
+            "[data-emerge]",
+            section
+          );
+
           gsap.fromTo(
-            section,
-            { autoAlpha: 0.72, y: 34 },
+            content,
+            { autoAlpha: 0.54, y: 92, scale: 0.965, filter: "blur(10px)" },
             {
               autoAlpha: 1,
               y: 0,
+              scale: 1,
+              filter: "blur(0px)",
               ease: "none",
               scrollTrigger: {
                 trigger: section,
-                scrub: 0.6,
-                start: "top 88%",
-                end: "top 34%"
+                scrub: 0.75,
+                start: "top 92%",
+                end: "top 32%"
+              }
+            }
+          );
+
+          if (emergentItems.length > 0) {
+            gsap.fromTo(
+              emergentItems,
+              { autoAlpha: 0, y: 58, scale: 0.95 },
+              {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                stagger: 0.08,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: section,
+                  scrub: 0.65,
+                  start: "top 72%",
+                  end: "top 18%"
+                }
+              }
+            );
+          }
+        });
+
+        gsap.utils.toArray<HTMLElement>("[data-transit-gate]").forEach((gate) => {
+          gsap.fromTo(
+            gate,
+            { autoAlpha: 0, scale: 0.92, y: 34 },
+            {
+              autoAlpha: 1,
+              scale: 1,
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: gate,
+                scrub: 0.7,
+                start: "top 84%",
+                end: "bottom 46%"
+              }
+            }
+          );
+        });
+
+        gsap.utils.toArray<HTMLElement>("[data-region-depth]").forEach((element) => {
+          const depth = Number(element.dataset.regionDepth || 1);
+          const section = element.closest<HTMLElement>("[data-location-stage]");
+          if (!section) return;
+
+          gsap.fromTo(
+            element,
+            { autoAlpha: 0, y: depth * 28, scale: 0.92 },
+            {
+              autoAlpha: 1,
+              y: depth * -24,
+              scale: 1 + depth * 0.018,
+              ease: "none",
+              scrollTrigger: {
+                trigger: section,
+                scrub: 0.9,
+                start: "top bottom",
+                end: "bottom top"
               }
             }
           );

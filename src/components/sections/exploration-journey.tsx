@@ -45,6 +45,14 @@ type LocationIntroProps = {
   align?: "center" | "left";
 };
 
+type RegionSceneVariant =
+  | "nebula"
+  | "station"
+  | "nexus"
+  | "infrastructure"
+  | "core"
+  | "portal";
+
 const infrastructureIcons = [
   TicketCheck,
   Boxes,
@@ -58,13 +66,109 @@ const ecosystemIcons = [Bot, Cloud, PlugZap, Code2, Database, GitBranch];
 export function ExplorationJourney({ dictionary }: ExplorationJourneyProps) {
   return (
     <>
+      <GalacticTransitOverlay dictionary={dictionary} />
       <FirstContactLocation dictionary={dictionary} />
+      <TransitGate
+        from={dictionary.journey.firstContact.eyebrow}
+        to={dictionary.journey.marketplace.eyebrow}
+      />
       <AgentMarketplaceLocation dictionary={dictionary} />
+      <TransitGate
+        from={dictionary.journey.marketplace.eyebrow}
+        to={dictionary.journey.command.eyebrow}
+      />
       <CommandNexusLocation dictionary={dictionary} />
+      <TransitGate
+        from={dictionary.journey.command.eyebrow}
+        to={dictionary.journey.infrastructure.eyebrow}
+      />
       <GalacticInfrastructureLocation dictionary={dictionary} />
+      <TransitGate
+        from={dictionary.journey.infrastructure.eyebrow}
+        to={dictionary.journey.ecosystem.eyebrow}
+      />
       <HyperCoreLocation dictionary={dictionary} />
+      <TransitGate
+        from={dictionary.journey.ecosystem.eyebrow}
+        to={dictionary.journey.invite.eyebrow}
+      />
       <FinalPortalLocation dictionary={dictionary} />
     </>
+  );
+}
+
+function GalacticTransitOverlay({ dictionary }: ExplorationJourneyProps) {
+  const locations = [
+    dictionary.hero.eyebrow,
+    dictionary.journey.firstContact.eyebrow,
+    dictionary.journey.marketplace.eyebrow,
+    dictionary.journey.command.eyebrow,
+    dictionary.journey.infrastructure.eyebrow,
+    dictionary.journey.ecosystem.eyebrow,
+    dictionary.journey.invite.eyebrow
+  ];
+
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-[2] hidden overflow-hidden lg:block"
+      data-transit-overlay
+    >
+      <div className="journey-warp-vectors" />
+      <div className="journey-camera-reticle">
+        <span />
+        <span />
+      </div>
+      <div className="absolute bottom-7 left-8 flex items-end gap-5">
+        <div className="journey-route-meter">
+          <span className="journey-route-fill" />
+        </div>
+        <div className="journey-location-panel min-w-52 rounded-lg border border-white/10 bg-slate-950/42 px-4 py-3 backdrop-blur-md">
+          <p className="text-[0.58rem] font-bold uppercase tracking-[0.24em] text-cyan-100/55">
+            Hyper vector
+          </p>
+          <p
+            className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-white/84"
+            data-current-location
+          >
+            {locations[0]}
+          </p>
+          <p className="mt-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-slate-500">
+            <span data-current-location-number>01</span> / 07
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TransitGate({ from, to }: { from: string; to: string }) {
+  return (
+    <div className="transit-gate hidden min-h-[42vh] items-center lg:flex" data-transit-gate>
+      <div className="mx-auto flex w-full max-w-5xl items-center gap-6 px-8">
+        <span className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-100/18 to-cyan-100/4" />
+        <div className="rounded-full border border-white/10 bg-slate-950/54 px-5 py-2 text-center text-[0.62rem] font-bold uppercase tracking-[0.22em] text-cyan-100/70 backdrop-blur-md">
+          <span className="text-slate-500">{from}</span>
+          <span className="mx-3 text-cyan-100/70">→</span>
+          <span>{to}</span>
+        </div>
+        <span className="h-px flex-1 bg-gradient-to-l from-transparent via-violet-100/16 to-violet-100/4" />
+      </div>
+    </div>
+  );
+}
+
+function RegionScene({ variant }: { variant: RegionSceneVariant }) {
+  return (
+    <div className={`region-scene region-scene-${variant}`} aria-hidden="true">
+      <span className="region-horizon" data-region-depth="1" />
+      <span className="region-orbit region-orbit-a" data-region-depth="2" />
+      <span className="region-orbit region-orbit-b" data-region-depth="3" />
+      <span className="region-beacon region-beacon-a" data-region-depth="4" />
+      <span className="region-beacon region-beacon-b" data-region-depth="5" />
+      <span className="region-vector region-vector-a" data-region-depth="6" />
+      <span className="region-vector region-vector-b" data-region-depth="7" />
+    </div>
   );
 }
 
@@ -107,9 +211,12 @@ function FirstContactLocation({ dictionary }: ExplorationJourneyProps) {
   return (
     <section
       id="platform"
-      className="section-shell flex min-h-screen items-center border-t border-white/8"
+      className="location-region section-shell flex min-h-screen items-center border-t border-white/8"
+      data-location-code={location.location}
+      data-location-label={location.eyebrow}
       data-location-stage
     >
+      <RegionScene variant="nebula" />
       <div
         className="absolute right-[12%] top-20 hidden h-72 w-72 rounded-full bg-cyan-300/8 blur-3xl lg:block"
         data-parallax="-42"
@@ -122,7 +229,7 @@ function FirstContactLocation({ dictionary }: ExplorationJourneyProps) {
           subtitle={location.subtitle}
         />
 
-        <div className="relative min-h-[520px]" data-reveal>
+        <div className="relative min-h-[520px]" data-reveal data-emerge>
           <div className="absolute inset-0 rounded-full bg-violet-400/8 blur-3xl" />
           <div className="glass-panel relative mx-auto grid min-h-[520px] max-w-[620px] place-items-center overflow-hidden rounded-lg p-6">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(34,211,238,0.12),transparent_18rem),linear-gradient(rgba(103,232,249,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.026)_1px,transparent_1px)] bg-[size:auto,72px_72px,72px_72px]" />
@@ -141,6 +248,7 @@ function FirstContactLocation({ dictionary }: ExplorationJourneyProps) {
               {location.signals.map((signal, index) => (
                 <div
                   key={signal}
+                  data-emerge
                   className="absolute rounded-full border border-white/10 bg-slate-950/74 px-4 py-2 text-xs font-semibold text-slate-200 shadow-[0_0_28px_rgba(34,211,238,0.08)]"
                   style={{
                     left: index === 0 ? "3%" : index === 1 ? "58%" : "26%",
@@ -164,10 +272,13 @@ function AgentMarketplaceLocation({ dictionary }: ExplorationJourneyProps) {
   return (
     <section
       id="agents"
-      className="section-shell min-h-screen border-y border-white/8 bg-[linear-gradient(180deg,rgba(8,17,32,0.62),rgba(3,7,18,0.9))]"
+      className="location-region section-shell min-h-screen border-y border-white/8 bg-[linear-gradient(180deg,rgba(8,17,32,0.62),rgba(3,7,18,0.9))]"
+      data-location-code={location.location}
+      data-location-label={location.eyebrow}
       data-horizontal-section
       data-location-stage
     >
+      <RegionScene variant="station" />
       <div
         className="absolute inset-0 bg-[linear-gradient(rgba(103,232,249,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.022)_1px,transparent_1px)] bg-[size:96px_96px] opacity-35 [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_75%,transparent)]"
         data-parallax="-24"
@@ -186,7 +297,10 @@ function AgentMarketplaceLocation({ dictionary }: ExplorationJourneyProps) {
             className="grid gap-4 md:grid-cols-2 lg:flex lg:w-max lg:gap-5 lg:pr-[28vw]"
             data-horizontal-track
           >
-            <div className="glass-panel relative min-h-[430px] overflow-hidden rounded-lg p-6 lg:w-[420px] lg:shrink-0">
+            <div
+              className="glass-panel relative min-h-[430px] overflow-hidden rounded-lg p-6 lg:w-[420px] lg:shrink-0"
+              data-emerge
+            >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_26%,rgba(124,58,237,0.18),transparent_16rem)]" />
               <div className="relative flex h-full flex-col justify-between">
                 <div>
@@ -218,6 +332,7 @@ function AgentMarketplaceLocation({ dictionary }: ExplorationJourneyProps) {
                 <motion.article
                   key={agent.name}
                   className="group relative min-h-[430px] overflow-hidden rounded-lg border border-white/10 bg-slate-950/68 p-5 lg:w-[360px] lg:shrink-0"
+                  data-emerge
                   data-reveal
                   initial={false}
                   whileHover={{ y: -8 }}
@@ -285,9 +400,12 @@ function CommandNexusLocation({ dictionary }: ExplorationJourneyProps) {
   return (
     <section
       id="command"
-      className="section-shell min-h-screen"
+      className="location-region section-shell min-h-screen"
+      data-location-code={location.location}
+      data-location-label={location.eyebrow}
       data-location-stage
     >
+      <RegionScene variant="nexus" />
       <span id="dashboard" className="absolute -top-24" />
       <div
         className="absolute left-[8%] top-20 h-72 w-72 rounded-full bg-violet-400/8 blur-3xl"
@@ -302,7 +420,11 @@ function CommandNexusLocation({ dictionary }: ExplorationJourneyProps) {
           subtitle={location.subtitle}
         />
 
-        <div className="glass-panel holo-border relative mt-12 overflow-hidden rounded-lg p-3 sm:p-5" data-reveal>
+        <div
+          className="glass-panel holo-border relative mt-12 overflow-hidden rounded-lg p-3 sm:p-5"
+          data-emerge
+          data-reveal
+        >
           <div className="absolute inset-0 bg-[linear-gradient(rgba(103,232,249,0.034)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.022)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30" />
           <div className="relative grid min-h-[760px] gap-4 lg:grid-cols-[220px_1fr]">
             <aside className="hidden rounded-lg border border-white/10 bg-slate-950/62 p-4 lg:block">
@@ -485,10 +607,13 @@ function GalacticInfrastructureLocation({ dictionary }: ExplorationJourneyProps)
   return (
     <section
       id="infrastructure"
-      className="section-shell border-y border-white/8 lg:min-h-[260vh]"
+      className="location-region section-shell border-y border-white/8 lg:min-h-[260vh]"
+      data-location-code={location.location}
+      data-location-label={location.eyebrow}
       data-pinned-cards-section
       data-location-stage
     >
+      <RegionScene variant="infrastructure" />
       <span id="tickets" className="absolute -top-24" />
       <div className="section-inner grid gap-10 lg:grid-cols-[0.76fr_1.24fr]">
         <div className="lg:sticky lg:top-28 lg:self-start">
@@ -547,9 +672,12 @@ function HyperCoreLocation({ dictionary }: ExplorationJourneyProps) {
   return (
     <section
       id="ecosystem"
-      className="section-shell min-h-screen"
+      className="location-region section-shell min-h-screen"
+      data-location-code={location.location}
+      data-location-label={location.eyebrow}
       data-location-stage
     >
+      <RegionScene variant="core" />
       <span id="impact" className="absolute -top-24" />
       <div className="section-inner">
         <LocationIntro
@@ -560,7 +688,7 @@ function HyperCoreLocation({ dictionary }: ExplorationJourneyProps) {
           subtitle={location.subtitle}
         />
 
-        <div className="relative mt-14 min-h-[620px]" data-reveal>
+        <div className="relative mt-14 min-h-[620px]" data-emerge data-reveal>
           <div className="absolute inset-0 rounded-full bg-cyan-300/7 blur-3xl" />
           <div className="glass-panel relative mx-auto grid min-h-[620px] max-w-5xl place-items-center overflow-hidden rounded-lg p-6">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(34,211,238,0.13),transparent_20rem),linear-gradient(rgba(103,232,249,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.02)_1px,transparent_1px)] bg-[size:auto,88px_88px,88px_88px]" />
@@ -623,9 +751,12 @@ function FinalPortalLocation({ dictionary }: ExplorationJourneyProps) {
   return (
     <section
       id="join"
-      className="section-shell flex min-h-screen items-center border-t border-white/8"
+      className="location-region section-shell flex min-h-screen items-center border-t border-white/8"
+      data-location-code={location.location}
+      data-location-label={location.eyebrow}
       data-location-stage
     >
+      <RegionScene variant="portal" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(124,58,237,0.16),transparent_32rem),radial-gradient(circle_at_58%_62%,rgba(34,211,238,0.09),transparent_30rem)]" />
       <div className="section-inner text-center">
         <div className="mx-auto max-w-4xl" data-reveal>
