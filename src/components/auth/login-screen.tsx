@@ -274,7 +274,7 @@ export function LoginScreen() {
                     required
                     autoComplete="email"
                     className="h-12 w-full rounded-lg border border-white/10 bg-slate-950/70 pl-10 pr-4 text-sm text-white outline-none transition-colors placeholder:text-slate-600 focus:border-cyan-200/50 focus:ring-2 focus:ring-cyan-300/20"
-                    placeholder="demo@hypergalaxy.ai"
+                    placeholder="demo@hypergalaxy.cloud"
                   />
                 </span>
               </label>

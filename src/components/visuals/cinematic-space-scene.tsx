@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from "react";
 
-const cinematicSpaceImage = "url('/cosmic/hyper-galaxy-cinematic-space-desktop.jpg')";
-const starsImage = "url('/cosmic/hyper-galaxy-stars-desktop.png')";
+const cinematicSpaceImage =
+  "url('/assets/cosmic/hyper-galaxy-cinematic-space-desktop.webp')";
+const starsImage = "url('/assets/cosmic/hyper-galaxy-stars-desktop.webp')";
 
 export function CinematicSpaceScene() {
   const rootRef = useRef<HTMLDivElement>(null);

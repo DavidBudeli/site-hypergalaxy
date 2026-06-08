@@ -11,7 +11,7 @@ function StaticCosmicBackdrop() {
     >
       <div
         className="absolute inset-0 bg-cover bg-center opacity-90"
-        style={{ backgroundImage: "url('/cosmic/hyper-galaxy-cinematic-space-mobile.jpg')" }}
+        style={{ backgroundImage: "url('/assets/cosmic/hyper-galaxy-cinematic-space-mobile.webp')" }}
       />
       <div
         className="absolute inset-0 opacity-[0.045] mix-blend-screen"

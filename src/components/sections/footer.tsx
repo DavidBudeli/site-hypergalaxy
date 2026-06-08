@@ -72,11 +72,11 @@ export function Footer({ dictionary }: FooterProps) {
             {dictionary.footer.contact}
           </h3>
           <a
-            href="mailto:hello@hypergalaxy.ai"
+            href="mailto:hello@hypergalaxy.cloud"
             className="mt-5 inline-flex items-center gap-2 text-sm text-cyan-100 hover:text-white"
           >
             <Mail className="h-4 w-4" />
-            hello@hypergalaxy.ai
+            hello@hypergalaxy.cloud
           </a>
         </div>
       </div>

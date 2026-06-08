@@ -1,21 +1,21 @@
 export const brandAssets = {
-  logoMain: "/brand/hyper-galaxy-logo-main-transparent.png",
-  logoCompact: "/brand/hyper-galaxy-logo-compact-transparent.png",
-  appIcon: "/brand/hyper-galaxy-app-icon.png",
-  symbol: "/brand/hyper-galaxy-symbol-square.png",
-  sheet: "/brand/hyper-galaxy-brand-sheet.png",
+  logoMain: "/assets/brand/hyper-galaxy-logo-main-transparent.webp",
+  logoCompact: "/assets/brand/hyper-galaxy-logo-compact-transparent.webp",
+  appIcon: "/assets/brand/hyper-galaxy-app-icon.webp",
+  symbol: "/assets/brand/hyper-galaxy-symbol-square.webp",
+  sheet: "/assets/brand/hyper-galaxy-brand-sheet.png",
   nova: {
-    mascot: "/brand/nova-mascot-main.png",
-    avatar: "/brand/nova-interface-avatar.png",
-    interfaceCard: "/brand/nova-interface-card.png",
-    iconColor: "/brand/nova-app-icon-color.png",
-    iconPurple: "/brand/nova-app-icon-purple.png",
-    iconLight: "/brand/nova-app-icon-light.png",
-    iconLine: "/brand/nova-app-icon-line.png",
-    loading: "/brand/nova-state-loading.png",
-    thinking: "/brand/nova-state-thinking.png",
-    success: "/brand/nova-state-success.png",
-    wave: "/brand/nova-state-wave.png"
+    mascot: "/assets/brand/nova-mascot-main.webp",
+    avatar: "/assets/brand/nova-interface-avatar.webp",
+    interfaceCard: "/assets/brand/nova-interface-card.webp",
+    iconColor: "/assets/brand/nova-app-icon-color.webp",
+    iconPurple: "/assets/brand/nova-app-icon-purple.webp",
+    iconLight: "/assets/brand/nova-app-icon-light.webp",
+    iconLine: "/assets/brand/nova-app-icon-line.webp",
+    loading: "/assets/brand/nova-state-loading.webp",
+    thinking: "/assets/brand/nova-state-thinking.webp",
+    success: "/assets/brand/nova-state-success.webp",
+    wave: "/assets/brand/nova-state-wave.webp"
   }
 } as const;
 

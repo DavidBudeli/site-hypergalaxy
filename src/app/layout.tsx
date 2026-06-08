@@ -5,10 +5,10 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Hyper Galaxy",
-  url: "https://hypergalaxy.ai",
+  url: "https://hypergalaxy.cloud",
   description:
-    "AI intelligence infrastructure, automation systems and premium SaaS platforms for modern companies.",
-  sameAs: ["https://hypergalaxy.ai"],
+    "Infraestrutura inteligente para IA, automação e operações em escala.",
+  sameAs: ["https://hypergalaxy.cloud"],
   knowsAbout: [
     "Artificial Intelligence",
     "Automation",
@@ -19,18 +19,17 @@ const structuredData = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales",
-    email: "hello@hypergalaxy.ai",
+    email: "hello@hypergalaxy.cloud",
     availableLanguage: ["Portuguese", "English"]
   }
 };
 
 export const metadata: Metadata = {
   title: {
-    default: "Hyper Galaxy | AI, Automacao e Plataformas SaaS",
-    template: "%s | Hyper Galaxy"
+    default: "Hyper Galaxy Cloud",
+    template: "%s | Hyper Galaxy Cloud"
   },
-  description:
-    "Hyper Galaxy constroi sistemas inteligentes, automacoes e plataformas escalaveis para empresas modernas.",
+  description: "Infraestrutura inteligente para IA, automação e operações em escala.",
   keywords: [
     "Hyper Galaxy",
     "inteligencia artificial",
@@ -43,15 +42,17 @@ export const metadata: Metadata = {
   authors: [{ name: "Hyper Galaxy" }],
   creator: "Hyper Galaxy",
   icons: {
-    icon: "/brand/hyper-galaxy-app-icon.png",
-    apple: "/brand/hyper-galaxy-app-icon.png"
+    icon: "/assets/brand/hyper-galaxy-app-icon.png",
+    apple: "/assets/brand/hyper-galaxy-app-icon.png"
   },
-  metadataBase: new URL("https://hypergalaxy.ai"),
+  metadataBase: new URL("https://hypergalaxy.cloud"),
+  alternates: {
+    canonical: "https://hypergalaxy.cloud"
+  },
   openGraph: {
-    title: "Hyper Galaxy | AI Intelligence Infrastructure",
-    description:
-      "Uma plataforma premium para agentes de IA, automacoes e sistemas SaaS escalaveis.",
-    url: "https://hypergalaxy.ai",
+    title: "Hyper Galaxy Cloud",
+    description: "Infraestrutura inteligente para IA, automação e operações em escala.",
+    url: "https://hypergalaxy.cloud",
     siteName: "Hyper Galaxy",
     type: "website",
     locale: "pt_BR",
@@ -59,9 +60,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hyper Galaxy | AI Intelligence Infrastructure",
-    description:
-      "Tecnologia, IA e automacao para empresas modernas."
+    title: "Hyper Galaxy Cloud",
+    description: "Infraestrutura inteligente para IA, automação e operações em escala."
   },
   robots: {
     index: true,

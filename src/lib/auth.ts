@@ -13,7 +13,7 @@ export type HyperGalaxySession = {
 };
 
 export const demoCredentials = {
-  email: "demo@hypergalaxy.ai",
+  email: "demo@hypergalaxy.cloud",
   password: "Hyper@2026"
 };
 

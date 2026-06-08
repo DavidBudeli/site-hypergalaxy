@@ -77,7 +77,7 @@ export function HyperGalaxyPreloader() {
             className="absolute inset-0 bg-cover bg-center opacity-80"
             style={{
               backgroundImage:
-                "url('/cosmic/hyper-galaxy-cinematic-space-desktop.jpg')"
+                "url('/assets/cosmic/hyper-galaxy-cinematic-space-desktop.webp')"
             }}
           />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_44%,rgba(124,58,237,0.2),transparent_24rem),radial-gradient(circle_at_58%_56%,rgba(34,211,238,0.12),transparent_22rem),linear-gradient(180deg,rgba(3,7,18,0.72),rgba(3,7,18,0.88))]" />
